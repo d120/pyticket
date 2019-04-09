@@ -1,13 +1,13 @@
 
-mysite/db.sqlite3
+pyticket/db.sqlite3
 *.pyc
 .vscode/settings.json
-mysite/debug-email-messages/*
+pyticket/debug-email-messages/*
 *.odt#
-mysite/.idea/workspace.xml
-mysite/.idea/vcs.xml
-mysite/.idea/mysite.iml
-mysite/.idea/modules.xml
-mysite/.idea/misc.xml
-mysite/.idea/encodings.xml
-mysite/.idea/codeStyles/codeStyleConfig.xml
+pyticket/.idea/workspace.xml
+pyticket/.idea/vcs.xml
+pyticket/.idea/pyticket.iml
+pyticket/.idea/modules.xml
+pyticket/.idea/misc.xml
+pyticket/.idea/encodings.xml
+pyticket/.idea/codeStyles/codeStyleConfig.xml

@@ -5,7 +5,7 @@
 
 # Befehle
 
-Um den Server zu starten, innerhalb des /mysite Ordners folgenden Befehl ausführen:
+Um den Server zu starten, innerhalb des /pyticket Ordners folgenden Befehl ausführen:
 ```
 python3 manage.py runserver
 ```

@@ -1,4 +1,4 @@
-from mysite.settings import *
+from pyticket.settings import *
 
 DATABASES = {
     'default': {
