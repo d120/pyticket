@@ -11,3 +11,4 @@ pyticket/.idea/modules.xml
 pyticket/.idea/misc.xml
 pyticket/.idea/encodings.xml
 pyticket/.idea/codeStyles/codeStyleConfig.xml
+db.sqlite3
