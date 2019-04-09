@@ -1,0 +1,13 @@
+
+mysite/db.sqlite3
+*.pyc
+.vscode/settings.json
+mysite/debug-email-messages/*
+*.odt#
+mysite/.idea/workspace.xml
+mysite/.idea/vcs.xml
+mysite/.idea/mysite.iml
+mysite/.idea/modules.xml
+mysite/.idea/misc.xml
+mysite/.idea/encodings.xml
+mysite/.idea/codeStyles/codeStyleConfig.xml

@@ -1,0 +1,31 @@
+{% extends "site_base.html" %}
+{% block head_title %}Login{%endblock %}
+{% load crispy_forms_tags %}
+
+<!-- Login -->
+{% block no_nav %}
+<div class="container">
+    <br>
+    <br>
+    <br>
+    <div class="row">
+        <div class="col-sm">
+        </div>
+        <div class="col-sm">
+            <form method="POST" action="{% url 'login' %}">
+                {% csrf_token %}
+                {{ form|crispy }}
+                {% if next %}
+                <input type="hidden" name="next" value="{{ next }}">
+                {% endif %}
+                <button type="submit" class="btn btn-primary">
+                    Submit
+                </button>
+            </form>
+        </div>
+        <div class="col-sm">
+        </div>
+    </div>
+</div>
+{% endblock no_nav %}
+<!-- End Login -->

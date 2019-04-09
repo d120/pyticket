@@ -1,0 +1,62 @@
+{% load staticfiles %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>
+        {% block head_title_base %}{% block head_title %}{% endblock %} | Ticket Management{% endblock %}
+    </title>
+
+    {% block styles %}{% endblock %}
+</head>
+<body id="page">
+<div id="wrapper">
+
+    {% block no_nav %}
+    {% block sidebar %}{% endblock %}
+    <!-- Content Wrapper -->
+    <div id="content-wrapper" class="d-flex flex-column">
+
+        <!-- Main Content -->
+        <div id="content">
+            {% block account_bar %}{% include "_account_bar.html" %}{% endblock %}
+
+            <div id="dashboard_content">
+
+                {% block body_base %}
+                {% block alerts %}{% endblock %}
+
+                <div class="container-fluid">
+
+                    {% block body %}{% endblock %}
+                </div>
+                {% endblock %}
+
+                <!-- End of Main Content -->
+            </div>
+
+
+        </div>
+
+
+        {% block footer_base %}
+        {% block footer%}{% endblock %}
+        {% endblock %}
+
+    </div>
+    {% endblock %}
+
+</div>
+{% block scripts %}{% endblock %}
+<script type="text/javascript">
+    {% block custom_scripts %}
+    {% endblock %}
+</script>
+</body>
+</html>

@@ -1,0 +1,33 @@
+{% extends "site_base.html" %}
+{% load i18n %}
+{% block head_title %}Delete Group{% endblock %}
+{% load crispy_forms_tags %}
+
+<!-- Start Delete Group-->
+{% block body %}
+<div class="card shadow mb-5">
+    <div class="card-header py-3">
+        <h6 class="m-0 font-weight-bold text-primary">
+            {% trans "Sind Sie sich sicher?" %}
+        </h6>
+    </div>
+    <div class="card-body">
+        <form method="POST"
+              action="{% url 'delete_group' group_id=group.id %}">
+            {% csrf_token %}
+            {{ form|crispy }}
+            <p>
+                Wollen Sie wirklich aus <b>{{ group.name }}</b> austreten?
+            </p>
+            <button type="submit" class="btn btn-primary">
+                {% trans "Ja" %}
+            </button>
+            <a type="button" class="btn btn-primary"
+               href="{% url 'dashboard' %}">
+                {% trans "Nein" %}
+            </a>
+        </form>
+    </div>
+</div>
+{% endblock body %}
+<!-- End Delete Group-->

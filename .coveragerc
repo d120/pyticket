@@ -1,0 +1,78 @@
+[report]
+exclude_lines =
+    pragma: no cover
+    tickets_notify = Ticket.objects.filter(accepted=True, deadline=datetime.today())
+    for ticket in tickets_notify:
+        send_ticket_deadline_notification(ticket)
+    # send buld emails
+    users = MyUser.objects.all()
+    for user in users:
+        emails_to_send = EmailBucket.objects.filter(send_to=user, sent=False)
+        if emails_to_send:
+            message = ""
+            for email in emails_to_send:
+                message += email.message + "\n"
+                email.sent = True
+                email.save()
+            subject = "Deine Tägliche Zusammenfassung"
+    return HttpResponse("Done.")
+
+                if form.changed_data:
+                message = ""
+                i = 0
+                for name in form.changed_data:
+                    log = Log()
+                    log.before = getattr(old_ticket, name)
+                    log.after = getattr(ticket, name)
+                    log.fieldname = name
+                    log.save()
+                    changes.append(log)
+
+                    message += name + " = " + str(getattr(old_ticket, name))
+                    if i < len(form.changed_data) - 1:
+                        message += ", "
+                    i += 1
+
+                # return HttpResponse(message)
+                create_ticket_log(ticket, user, "changed", message, changes)
+
+                if ticket.assigned_user != user and ticket.assigned_user:
+                    send_ticket_edit_notification(user, ticket)
+
+                if 'assigned_user' in form.changed_data:
+                    ticket.accepted = False
+                    ticket.rejected = False
+                        ticket.accepted = True
+                        ticket.rejected = False
+                    elif form.cleaned_data['assigned_user']:
+                        send_assigned_notification(user, ticket)
+                        ticket.time_assign_user = datetime.now()
+                        ticket.rejected = False
+                        ticket.accepted = False
+                        ticket.dispatcher = user
+                    else:
+                        ticket.rejected = True
+                        ticket.accepted = False
+
+                if 'assigned_group' in form.changed_data:
+                    ticket.ignored_by.clear()
+                    if form.cleaned_data['assigned_group'] and ticket.rejected:
+                        ticket.rejected = False
+
+            ticket.recurrences = recurrences
+            form.save()
+            return HttpResponseRedirect(reverse('dashboard'))
+                    if value in self.empty_values:
+
+            return None
+
+        if isinstance(value, datetime.datetime):
+            return value.date()
+        if isinstance(value, datetime.date):
+            return value
+        if isinstance(value, str):
+            if(len(value)> 10):
+
+# Don't complain if non-runnable code isn't run:
+    if 0:
+    if __name__ == .__main__.:

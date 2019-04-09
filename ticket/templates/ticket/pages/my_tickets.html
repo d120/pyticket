@@ -1,0 +1,58 @@
+{% extends "site_base.html" %}
+{% load i18n %}
+{% block head_title %}{% trans "Archiv" %}{% endblock %}
+{% block body %}
+
+<!-- My Ticket-->
+<div class="card shadow mb-5">
+    <div class="card-header py-3">
+        <h6 class="m-0 font-weight-bold text-primary"
+          title="{% trans "Zeigt alle offene, von mir akzeptierten Tickets an." %}">
+            {% trans "Meine offenen Tickets" %}
+        </h6>
+    </div>
+    <div class="card-body">
+        <div class="table-responsive">
+            <table class="table table-bordered" id="dataTable" width="100%"
+                   cellspacing="0">
+                <thead>
+                <tr>
+                    <th>{% trans "Ticketname" %}</th>
+                    <th>{% trans "Beschreibung" %}</th>
+                    <th>{% trans "Priorität" %}</th>
+                    <th>{% trans "Deadline" %}</th>
+                    <th>{% trans "Aktionen" %}</th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for ticket in tickets %}
+                <tr>
+                    <td>
+                        <a href="{% url 'show_ticket' ticket_id=ticket.id %}">
+                            {{ticket.name|truncatechars:42}}
+                        </a>
+                    </td>
+                    <td>{{ticket.text|truncatechars:42}}</td>
+                    <td>{{ticket.priority}}</td>
+                    <td>{{ticket.deadline}}</td>
+                    <td>
+                      <a href="{% url 'edit_ticket' ticket_id=ticket.id%}"
+                         class="btn btn-info btn-circle btn-sm"
+                         title="{% trans "Das Ticket bearbeiten." %}">
+                          <i class="fas fa-edit"></i>
+                      </a>
+                      <a href="{% url 'close_ticket' ticket_id=ticket.id %}"
+                         class="btn btn-success btn-circle btn-sm"
+                         title="{% trans "Das Ticket als erledigt markieren." %}">
+                          <i class="fas fa-check"></i>
+                      </a>
+                    </td>
+                </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+{% endblock %}
+<!-- End My Ticket-->

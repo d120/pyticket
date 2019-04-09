@@ -1,0 +1,105 @@
+{% extends "site_base.html" %}
+{% load i18n %}
+{% block head_title %}Inbox{% endblock %}
+{% load crispy_forms_tags %}
+{% load static %}
+
+<!-- Inbox Tickets-->
+{% block body %}
+<div class="card shadow mb-5">
+    <div class="card-header py-3">
+        <h6 class="m-0 font-weight-bold text-primary"
+          title="{% trans "Zeigt alle offenen, mir zugewiesenen Tickets an, bei der die Zuweisung noch aussteht, sowie nicht zugewiesene Gruppentickets." %}">
+          {% trans "Inbox" %}</h6>
+    </div>
+    <div class="card-body">
+        <div class="table-responsive">
+            <table class="table table-bordered" id="dataTable" width="100%"
+                   cellspacing="0">
+                <thead>
+                <tr>
+                    <th>{% trans "Ticketname" %}</th>
+                    <th>{% trans "Beschreibung" %}</th>
+                    <th>{% trans "Priorität" %}</th>
+                    <th>{% trans "Deadline" %}</th>
+                    <th>{% trans "Ersteller" %}</th>
+                    <th>{% trans "Aktionen" %}</th>
+                </tr>
+                </thead>
+
+                <tbody>
+                {% for ticket in tickets %}
+                <tr>
+                    <td>
+                        <a href="{% url 'show_ticket' ticket_id=ticket.id %}">
+                            {{ticket.name|truncatechars:42}}
+                        </a>
+                    </td>
+                    <td>{{ticket.text|truncatechars:42}}</td>
+                    <td>{{ticket.priority}}</td>
+                    <td>{{ticket.deadline}}</td>
+                    <td>{{ticket.creator_user.first_name}}
+                        {{ticket.creator_user.last_name}}
+                    </td>
+                    <td>
+                        <form method="POST" action="/inbox/">
+                            {% csrf_token %}
+                            {{ crispy }}
+                            <button type="submit" name="_acc"
+                                    value="{{ticket.id}}"
+                                    class="btn btn-success btn-circle btn-sm"
+                                    title="{% trans "Nehme Zuweisung an." %}"><i
+                                     class="fas fa-user-check"></i></button>
+
+                            <button type="submit" name="_rej"
+                                    value="{{ticket.id}}"
+                                    class="btn btn-danger btn-circle btn-sm"
+                                    title="{% trans "Lehne Zuweisung ab." %}"><i
+                                    class="fas fa-times-circle"></i></button>
+                        </form>
+                    </td>
+                </tr>
+                {% endfor %}
+                {% for ticket in group_tickets %}
+                <tr>
+                    <td>
+                        <a href="{% url 'show_ticket' ticket_id=ticket.id %}">
+                            {{ticket.name|truncatechars:42}}
+                        </a>
+                    </td>
+                    <td>{{ticket.text|truncatechars:42}}</td>
+                    <td>{{ticket.priority}}</td>
+                    <td>{{ticket.deadline}}</td>
+                    <td>{{ticket.creator_user.first_name}}
+                        {{ticket.creator_user.last_name}}
+                    </td>
+                    <td>
+                        <form method="POST" action="/inbox/">
+                            {% csrf_token %}
+                            {{ crispy }}
+                            <button type="submit" name="_acc"
+                                    value="{{ticket.id}}"
+                                    class="btn btn-success btn-circle btn-sm"
+                                    title="{% trans "Nehme Zuweisung an." %}"><i
+                                     class="fas fa-user-check"></i></button>
+
+                            <button type="submit" name="_ignore"
+                                    value="{{ticket.id}}"
+                                    class="btn btn-warning btn-circle btn-sm"
+                                    title="{% trans "Ignoriere das Ticket. Es verschwindet aus der Inbox." %}">
+                                <i class="far fa-bell-slash"></i></button>
+                            <a href="{% url 'dashboard_group' group_id=ticket.assigned_group.id %}"
+                                    type="button" class="btn btn-info btn-circle btn-sm"
+                                    title="Link zur Gruppe {{ticket.assigned_group}}">
+                                <i class="fas fa-users"></i></a>
+                        </form>
+                    </td>
+                </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+{% endblock %}
+<!-- End Inbox Tickets-->

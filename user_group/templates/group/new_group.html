@@ -1,0 +1,26 @@
+{% extends "site_base.html" %}
+{% load i18n %}
+{% block head_title %}New Group{% endblock %}
+{% load crispy_forms_tags %}
+
+<!-- Start New Group-->
+{% block body %}
+<div class="card shadow mb-5">
+    <div class="card-header py-3">
+        <h6 class="m-0 font-weight-bold text-primary">
+            {% trans "Gruppe anlegen" %}
+        </h6>
+    </div>
+    <div class="card-body">
+        <form method="POST" action="{% url 'new_group' %}">
+            {% csrf_token %}
+            {{ form.media }}
+            {{ form|crispy }}
+            <button type="submit" class="btn btn-primary">
+                {% trans "Gruppe erstellen" %}
+            </button>
+        </form>
+    </div>
+</div>
+{% endblock body %}
+<!-- End New Group-->

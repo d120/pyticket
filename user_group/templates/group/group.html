@@ -1,0 +1,105 @@
+{% extends "site_base.html" %}
+{% block head_title %}Ticket Management System{% endblock %}
+{% load i18n %}
+
+
+<!-- Start Group-->
+{% block body %}
+<div class="card shadow mb-5">
+    <div class="card-header py-3">
+        <h6 class="m-0 font-weight-bold text-primary">
+            {{ group.name }} Tickets
+        </h6>
+    </div>
+    <div class="card-body">
+        <div class="table-responsive">
+            <table class="table table-bordered" id="dataTable" width="100%"
+                   cellspacing="0">
+                <thead>
+                <tr>
+                  <th>{% trans "Ticketname" %}</th>
+                  <th>{% trans "Beschreibung" %}</th>
+                  <th>{% trans "Status" %}</th>
+                  <th>{% trans "Priorität" %}</th>
+                  <th>{% trans "Akzeptiert" %}</th>
+                  <th>{% trans "Deadline" %}</th>
+                  <th>{% trans "Aktionen" %}</th>
+                </tr>
+                </thead>
+
+                <tbody>
+                {% for ticket in tickets %}
+                <tr>
+                    <td><a href="{% url 'show_ticket' ticket_id=ticket.id %}">
+                        {{ ticket.name|truncatechars:42 }}</a></td>
+                    <td>{{ticket.text|truncatechars:42}}</td>
+                    <td>{{ticket.state}}</td>
+                    <td>{{ticket.priority}}</td>
+                    <td>{{ticket.accepted}}</td>
+                    <td>{{ticket.deadline}}</td>
+                    <td>
+                        <form method="POST" action="/inbox/">
+                            <a href="/ticket/{{ ticket.id }}#id_comment"
+                               class="btn btn-info btn-circle btn-sm"
+                               title="{% trans "Das Ticket kommentieren." %}">
+                                <i class="fas fa-comment"></i>
+                            </a>
+                            {% csrf_token %}
+                            {{ crispy }}
+                            {% if not ticket.accepted %}
+                            <button type="submit" name="_acc"
+                                    value="{{ticket.id}}"
+                                    class="btn btn-success btn-circle btn-sm"
+                                    title="{% trans "Akzeptiere das Ticket. Weise es dir als Bearbeiter zu." %}">
+                                <i class="fas fa-user-check"></i></button>
+                            {% endif %}
+                            <a href="{% url 'edit_ticket' ticket_id=ticket.id%}"
+                               class="btn btn-info btn-circle btn-sm"
+                               title="{% trans "Das Ticket bearbeiten." %}">
+                                <i class="fas fa-edit"></i>
+                            </a>
+                        </form>
+                    </td>
+                </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
+        <p>
+            <a class="card-link" data-toggle="collapse" href="#collapseToggle"
+               role="button"
+               aria-expanded="false" aria-controls="collapseToggle">
+                {% trans "Mitglieder" %}
+                <i id="collapse-icon" class="fas fa-caret-down">
+                </i>
+            </a>
+        </p>
+        <div class="collapse" id="collapseToggle">
+            <div class="card">
+                <div class="card-body">
+                    <p class="card-text">
+                        {% for member in group.user_set.all %}
+                        {{ member }},
+                        {% endfor %}
+                    </p>
+                </div>
+            </div>
+        </div>
+        <p></p>
+        <a href="{% url 'delete_group' group_id=group.id %}"
+           class="btn btn-danger">{% trans "Gruppe verlassen" %}</a>
+        <a href="{% url 'edit_group' group_id=group.id %}"
+           class="btn btn-primary">{% trans "Gruppe bearbeiten" %}</a>
+    </div>
+</div>
+{% endblock %}
+<!-- End Group -->
+
+{% block custom_scripts %}
+$('#collapseToggle').on('hide.bs.collapse', function () {
+$('#collapse-icon').removeClass("fa-caret-up");
+$('#collapse-icon').addClass("fa-caret-down");});
+$('#collapseToggle').on('show.bs.collapse', function () {
+$('#collapse-icon').removeClass("fa-caret-down");
+$('#collapse-icon').addClass("fa-caret-up");});
+{% endblock %}

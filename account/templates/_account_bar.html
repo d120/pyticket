@@ -1,0 +1,169 @@
+{% load i18n %}
+{% load static %}
+{% load injection_tags %}
+
+
+<!-- Account Bar -->
+<nav class="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow">
+
+    <!-- Sidebar Toggle -->
+    <button id="sidebarToggleTop"
+            class="btn btn-link d-md-none rounded-circle mr-3">
+        <i class="fa fa-bars">
+        </i>
+    </button>
+    <!-- End Sidebar Toggle -->
+
+    <!-- Add Ticket -->
+    <form>
+        <div>
+            <a href="/new"
+               class="d-block d-sm-inline-block btn btn-sm btn-primary shadow-sm">
+                <i class="fas fa-download fa-sm text-white-50">
+                </i>
+                {% trans "Neues Ticket" %}
+            </a>
+        </div>
+    </form>
+    <!-- End Add Ticket -->
+
+    <!-- Account Bar Navbar -->
+    <ul class="navbar-nav ml-auto">
+        <form class="form-inline my-2 my-lg-0" action="/search" method="get">
+            <div class="d-none d-sm-block">
+                <input class="form-control form-control-sm" type="search"
+                       placeholder="Suche Tickets" aria-label="Search"
+                       name="name_text">
+                <button class="btn btn-outline-secondary btn-sm" type="submit">
+                    <i class="fas fa-search"></i></button>
+            </div>
+        </form>
+
+
+        <!-- Dropdown Messages -->
+        <div class="dropdown-menu dropdown-menu-right p-3 shadow animated--grow-in"
+             aria-labelledby="searchDropdown">
+            <form class="form-inline mr-auto w-100 navbar-search">
+                <div class="input-group">
+                    <input type="text"
+                           class="form-control bg-light border-0 small"
+                           placeholder="Search for..."
+                           aria-label="Search" aria-describedby="basic-addon2">
+                    <div class="input-group-append">
+                        <button class="btn btn-primary" type="button">
+                            <i class="fas fa-search fa-sm">
+                            </i>
+                        </button>
+                    </div>
+                </div>
+            </form>
+        </div>
+        <!-- End Dropdown Messages -->
+
+
+        <!-- Nav Item Messages -->
+        <li class="nav-item dropdown no-arrow mx-1">
+            <a class="nav-link dropdown-toggle" href="#" id="messagesDropdown"
+               role="button"
+               data-toggle="dropdown" aria-haspopup="true"
+               aria-expanded="false">
+                <i class="fas fa-bell fa-fw"></i>
+                <!-- Counter - Messages -->
+                {% if request.user|inbox_count > 0 %}
+                <span class="badge badge-danger badge-counter">
+                    {{ request.user|inbox_count }}
+                </span>
+                {% endif %}
+            </a>
+
+            {% if request.user|inbox_count > 0 %}
+            <div class="dropdown-list dropdown-menu dropdown-menu-right shadow animated--grow-in"
+                 aria-labelledby="messagesDropdown">
+                <h6 class="dropdown-header">
+                    {% trans "Inbox" %}
+                </h6>
+                {% for ticket in request.user|inbox %}
+                <a class="dropdown-item d-flex align-items-center"
+                   href="{% url 'show_ticket' ticket_id=ticket.id %}">
+                    <div class="dropdown-list-image mr-3">
+                        <img class="rounded-circle" src="/static/pic/pic.jpg"
+                             alt="">
+                        <div class="status-indicator bg-success">
+                        </div>
+                    </div>
+                    <div class="font-weight-bold">
+                        <div class="text-truncate">
+                            {% trans "Neue Zuweisung" %} "{{ ticket.name|truncatechars:42 }}"
+                        </div>
+                        <div class="small text-gray-500">
+                            {{ ticket.creator_user.first_name }}
+                            {{ ticket.creator_user.last_name }}
+                            {% if ticket.assigned_user %} ·
+                            {{ ticket.time_assign_user }}
+                            {% endif %}
+                        </div>
+                    </div>
+                </a>
+                {% endfor %}
+            </div>
+            {% else %}
+            <div class="dropdown-list dropdown-menu dropdown-menu-right shadow animated--grow-in"
+                 aria-labelledby="messagesDropdown">
+                <h6 class="dropdown-header">
+                    {% trans "Inbox" %}
+                </h6>
+                <a class="dropdown-item d-flex align-items-center" href="#">
+
+                    <div class="font-weight-bold">
+                        <div class="text-gray-600">
+                          {% trans "Keine neuen Benachrichtigungen!" %}
+                        </div>
+                    </div>
+                </a>
+            </div>
+            {% endif %}
+        </li>
+        <!-- End Nav Item Messages -->
+
+
+        <!-- Divider -->
+        <div class="topbar-divider d-none d-sm-block">
+        </div>
+        <!-- End Divider -->
+
+
+        <!-- Nav Item User -->
+        <li class="nav-item dropdown no-arrow">
+            <a class="nav-link dropdown-toggle" href="#" id="userDropdown"
+               role="button" data-toggle="dropdown"
+               aria-haspopup="true" aria-expanded="false">
+                <span class="mr-2 d-none d-lg-inline text-gray-600 small">
+                    {{user.first_name}} {{user.last_name}}
+                </span>
+                <img class="img-profile rounded-circle"
+                     src="/static/pic/pic.jpg">
+            </a>
+
+            <!-- Dropdown User -->
+            <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in"
+                 aria-labelledby="userDropdown">
+                <a class="dropdown-item" href="/accounts/settings/">
+                    <i class="fas fa-cogs fa-sm fa-fw mr-2 text-gray-400">
+                    </i>
+                    {% trans "Einstellungen" %}
+                </a>
+                <div class="dropdown-divider"></div>
+                <a class="dropdown-item" href="{% url 'logout' %}">
+                    <!-- data-toggle="modal" data-target="#logoutModal"-->
+                    <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400">
+                    </i>
+                    {% trans "Ausloggen" %}
+                </a>
+            </div>
+            <!-- End Dropdown User -->
+        </li>
+        <!-- End Nav Item User -->
+    </ul>
+    <!-- End Account Bar Navbar -->
+</nav>
+<!-- End Account Bar -->

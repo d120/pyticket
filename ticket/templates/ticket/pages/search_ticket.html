@@ -1,0 +1,146 @@
+{% extends "site_base.html" %}
+{% load i18n %}
+{% load crispy_forms_tags %}
+{% load static %}
+{% block head_title %}{% trans "Alle Tickets" %}{% endblock %}
+
+<!-- Search Tickets-->
+{% block body %}
+<div class="card shadow mb-5">
+    <div class="card-header py-3">
+        <h6 class="m-0 font-weight-bold text-primary">
+            {% trans "Alle Tickets" %}</h6>
+    </div>
+    <div class="card-body">
+        <form method="get" class="uniForm blueForms" method="post"
+              id="id-searchForm">
+            {{ filter.form.errors }}
+            <div class="form-row">
+                <div class="form-group col-md-4"
+                     title="{% trans "Zeichensuche in den Feldern 'name' und 'text'" %}">
+                    <label for="id_name_text" class="col-form-label">
+                        {% trans "Name und Text:" %}
+                    </label>
+                    {{ filter.form.name_text }}
+                </div>
+                <div class="form-group">
+                    <label for="id_deadline_0"
+                           class="col-form-label">
+                        {% trans "Deadline:" %}
+                    </label>
+                    {{ filter.form.deadline }}
+                    <button type="button" class="btn btn-secondary btn-sm"
+                            title="{% trans "Trägt die nächste Woche automatisch in die Deadlinefelder ein." %}"
+                            onclick="getNextWeek(); return false;">
+                        {% trans "Nächste Woche" %}
+                    </button>
+                </div>
+            </div>
+            <div class="form-row">
+                <div class="form-group col-md-3">
+                    <label for="id_state"
+                           class="col-form-label">{% trans "Status:" %}</label>
+                    {{ filter.form.state }}
+                </div>
+                <div class="form-group col-md-3">
+                    <label for="id_assigned_user" class="col-form-label">
+                        {% trans "Zugewiesen an:" %}</label>
+                    {{ filter.form.assigned_user }}
+                </div>
+                <div class="form-group col-md-3">
+                    <label for="id_assigned_group" class="col-form-label">
+                        {% trans "Gruppe:" %}
+                    </label>
+                    {{ filter.form.assigned_group }}
+                </div>
+            </div>
+            <div class="form-row">
+                <div class="form-group col-md-3">
+                    <label for="id_accepted"
+                           class="col-form-label">
+                        {% trans "Akzeptiert:" %}
+                    </label>
+                    {{ filter.form.accepted }}
+                </div>
+                <div class="form-group col-md-3">
+                    <label for="id_priority"
+                           class="col-form-label">
+                        {% trans "Priorität:" %}
+                    </label>
+                    {{ filter.form.priority }}
+                </div>
+                <div class="form-group col-md-3">
+                    <label for="id_creator_user" class="col-form-label">
+                        {% trans "Ersteller:" %}
+                    </label>
+                    {{ filter.form.creator_user }}
+                </div>
+            </div>
+            <button type="submit" class="btn btn-primary"
+                    title="{% trans "Suche. Attribute sind & verknüpft." %}">
+                <span class="glyphicon glyphicon-search"></span>
+                {% trans "Suche" %}
+            </button>
+        </form>
+        <br>
+        <div class="table-responsive">
+            <table class="table table-bordered" id="dataTable" width="100%"
+                   cellspacing="0">
+                <thead>
+                <tr>
+                    <th>{% trans "Name" %}</th>
+                    <th>{% trans "Status" %}</th>
+                    <th title="{% trans "Grün: Zuweisung akzeptiert; Orange: Zuweisung unbeantwortet." %}">
+                        {% trans "Bearbeiter" %}
+                    </th>
+                    <th>{% trans "Priorität" %}</th>
+                    <th>{% trans "Gruppe" %}</th>
+                    <th>{% trans "Aktionen" %}</th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for ticket in filter.qs %}
+                <tr>
+                    <td><a href="{% url 'show_ticket' ticket_id=ticket.id %}">
+                        {{ ticket.name|truncatechars:42 }}</a></td>
+                    <td>{{ ticket.state }}</td>
+                    <td>{% if ticket.accepted %}
+                        <font color="#009933"
+                              title="{% trans "Der Bearbeiter des Tickets. Grün bedeutet: Zuweisung akzeptiert." %}">
+                            {{ ticket.assigned_user }}
+                        </font>
+                        {% elif ticket.assigned_user %}
+                        <font color="#FF8000" title="{% trans "Der zugewiesene Nutzer. Orange bedeutet: Rückmeldung der Zuweisung steht noch aus." %}">
+                            {{ ticket.assigned_user }}
+                        </font>
+                        {% else %}
+                        ---
+                        {% endif %}
+                    </td>
+                    <td>{{ ticket.priority }}</td>
+                    <td>{{ ticket.assigned_group }}</td>
+                    <td>
+                        <a href="/ticket/{{ ticket.id }}#id_comment"
+                           class="btn btn-info btn-circle btn-sm"
+                           title="{% trans "Das Ticket kommentieren." %}">
+                            <i class="fas fa-comment"></i>
+                        </a>
+                        {% if ticket.state == 'done' %}
+                        <a href="{% url 'restore_ticket' ticket_id=ticket.id %}"
+                           class="btn btn-success btn-circle btn-sm"
+                           title="{% trans "Das Ticket wiederherstellen." %}"><i
+                                class="fas fa-redo"></i></a>
+                        {% endif %}
+                    </td>
+                </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript" src="{% static 'ticket/js/getnextweek.js' %}"
+        defer></script>
+{% endblock body %}
+<!-- End Search Tickets-->

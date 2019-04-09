@@ -1,0 +1,11 @@
+{% extends "site_base.html" %}
+{% load i18n %}
+
+{% block head_title %}{% trans "Nicht gefunden" %}{% endblock %}
+
+{% block body %}
+<header class="jumbotron subhead" id="overview">
+    <h1>{% trans "Seite nicht gefunden" %}</h1>
+    <p class="lead">{% trans "Die angegebe Seite konnte nicht gefunden werden." %}</p>
+</header>
+{% endblock %}

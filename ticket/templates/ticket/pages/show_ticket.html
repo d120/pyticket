@@ -1,0 +1,236 @@
+{% extends "site_base.html" %}
+{% load i18n %}
+{% load crispy_forms_tags %}
+{% load ticket_tags %}
+{% load static %}
+{% block head_title %}Ticket {{ ticket.id }}{% endblock %}
+
+<!-- Show Ticket-->
+{% block body %}
+<div class="card shadow mb-4">
+    <div class="card-header py-3">
+        <h6 class="m-0 font-weight-bold text-primary">
+            {{ ticket.name }}
+        </h6>
+    </div>
+    <div class="card-body">
+        <h6 class="card-subtitle mb-2 text-muted">
+            {% if ticket.accepted %}
+            <font color="#009933"
+                  title="{% trans "Der Bearbeiter des Tickets. Grün bedeutet: Zuweisung akzeptiert." %}">
+                {{ ticket.assigned_user }}
+            </font>
+            {% elif ticket.assigned_user %}
+            <font color="#FF8000"
+                  title="{% trans "Der zugewiesene Nutzer. Orange bedeutet: Rückmeldung der Zuweisung steht noch aus." %}">
+                {{ ticket.assigned_user }}
+            </font>
+            {% endif%}
+            {% if ticket.assigned_group %}
+            <a href="/group/group/{{ ticket.assigned_group.id }}">
+                {{ ticket.assigned_group|truncatechars:32 }}
+            </a>
+            {% endif %} | {{ ticket.state }}
+        </h6>
+        <div class="markdown-body">
+            <hr>
+            <p class="card-text">{{ ticket.get_markdown|safe }}</p>
+        </div>
+        {% if ticket.recurrences %}
+        <hr>
+        <h6><b>{% trans "Wiederholungen" %}</b></h6>
+        {% if ticket.recurrences.rrules %}
+        <table class="table table-bordered" id="recTable" width="100%"
+               cellspacing="0">
+            <thead>
+            <tr>
+                <th>{% trans "Regeln" %}</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for rule in ticket.recurrences.rrules %}
+            <tr>
+                <td>{{ rule.to_text }}</td>
+            </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+
+        {% endif %}
+        {% if ticket.recurrences.rdates %}
+        <table class="table table-bordered" id="datesTable" width="100%"
+               cellspacing="0">
+            <thead>
+            <tr>
+                <th>{% trans "Einzelne Tage" %}</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for date in ticket.recurrences.rdates %}
+            <tr>
+                <td>{{ date|date:"D, d F Y" }}</td>
+            </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+        {% endif %}
+        <hr>
+        {% endif %}
+        <a href="{% url 'edit_ticket' ticket_id=ticket.id %}"
+           class="card-link"><i class="far fa-edit"></i>
+            {% trans "Bearbeiten" %}</a>
+        <p></p>
+        {% if not ticket.accepted and ticket.state == 'open' %}
+        <form method="POST" action="/inbox/">
+            {% csrf_token %}
+            <input type="hidden"
+                   value="{% url 'show_ticket' ticket_id=ticket.id %}"
+                   name="next">
+            {{ crispy }}
+            <button type="submit" name="_acc" value="{{ticket.id}}"
+                    class="btn btn-primary" title="{% trans "Nehme Zuweisung an." %}">
+                {% trans "Akzeptieren" %}
+            </button>
+            {% if ticket.assigned_group and user in ticket.assigned_group.user_set.all and not ticket.assigned_user and not user in ticket.ignored_by.all %}
+            <button type="submit" name="_ignore" value="{{ticket.id}}"
+                    class="btn btn-primary"
+                    title="{% trans "Ignoriere das Ticket. Es verschwindet aus der Inbox." %}">
+                <i class="far fa-bell-slash"></i></button>
+            {% endif %}
+            {% if ticket.assigned_user == user %}
+            <button type="submit" name="_rej" value="{{ticket.id}}"
+                    class="btn btn-primary" title="{% trans "Lehne Zuweisung ab." %}">
+                {% trans "Ablehnen" %}
+            </button>
+            {% endif %}
+        </form>
+        <p></p>
+        {% endif %}
+
+
+        {% if comments %}
+        <label class="col-form-label">{% trans "Kommentare" %}</label>
+        {% endif %}
+
+        {% for comment in comments %}
+        <div class="card">
+            <div class="card-body">
+                <p class="card-text">{{ comment.comment|urlize }}</p>
+                <small id="passwordHelpBlock" class="form-text text-muted">
+                    {{ comment.user.username }} - {{ comment.created_at }}
+                </small>
+            </div>
+        </div>
+        <br>
+        {% endfor %}
+
+        {% if history %}
+        <p>
+            <a class="col-form-label card-link" data-toggle="collapse"
+               href="#collapseToggle0" role="button"
+               aria-expanded="false">
+                {% trans "Aktivität" %}
+                <i id="collapse-icon0" class="fas fa-caret-down"></i>
+            </a>
+        </p>
+        {% endif %}
+        <div class="collapse history" id="collapseToggle0">
+            {% for h in history %}
+            <div class="card">
+                <div class="card-body">
+                    <p class="card-text">
+                        <b>{{ h.user|capfirst }}</b>
+                        {% if h.state == "add" %}
+                        hat dieses Ticket <b>erstellt</b>
+                        {% elif h.state == "accepted" %}
+                        hat dieses Ticket <b>akzeptiert</b>
+                        {% elif h.state == "rejected" %}
+                        hat dieses Ticket <b>abgelehnt</b>
+                        {% elif h.state == "closed" %}
+                        hat dieses Ticket <b>geschlossen</b>
+                        {% elif h.state == "changed" %}
+                        hat folgende Felder
+                        <a class="col-form-label card-link"
+                           data-toggle="collapse"
+                           href="#collapseToggle{{h.id}}"
+                           role="button" aria-expanded="false">
+                            geändert <i id="collapse-icon{{h.id}}"
+                                        class="fas fa-caret-down"></i>
+                        </a>
+
+                    <div class="collapse history" id="collapseToggle{{h.id}}">
+                        <table class="table">
+                            <thead>
+                            <tr>
+                                <th scope="col">{% trans "Name" %}</th>
+                                <th scope="col">{% trans "Vorher" %}</th>
+                                <th scope="col">{% trans "Nachher" %}</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            {% for change in h.changes.all %}
+                            <tr>
+                                <td>{{ change.fieldname }}</td>
+                                <td>{{ change.before }}</td>
+                                <td>{{ change.after }}</td>
+                            </tr>
+                            {% endfor %}
+                            </tbody>
+                        </table>
+
+                    </div>
+                    {% endif %}
+                    </p>
+                    <small id="passwordHelpBlock" class="form-text text-muted">
+                        {{ h.created_at|date:"d.m.Y - g:i a" }}
+                    </small>
+                </div>
+            </div>
+            <br>
+            {% endfor %}
+        </div>
+
+        <form method="POST"
+              action="{% url 'show_ticket' ticket_id=ticket.id %}">
+            {% csrf_token %}
+            {{ form|crispy }}
+            <button type="submit" class="btn btn-primary">
+                {% trans "Kommentar hinzufügen" %}
+            </button>
+            {% if ticket.state == "open" %}
+            <a href="{% url 'close_ticket' ticket_id=ticket.id %}?next={% url 'dashboard' %}"
+               id="close"
+               class="btn btn-success"
+               title="{% trans "Schließt das Ticket. Markiert es als erledigt." %}">
+                {% trans "Ticket schließen" %}
+            </a>
+            <button type="submit" id="id_candc" name="_closeandcomm"
+                    class="btn btn-success" hidden
+                    title="{% trans "Kommentar wird hinzugefügt. Ticket wird als erledigt markiert." %}">
+                {% trans "Kommentieren und schließen" %}
+            </button>
+            {% endif %}
+        </form>
+        <script type="text/javascript"
+                src="{% static 'ticket/js/closeandcomment.js' %}"
+                defer></script>
+    </div>
+</div>
+<br>
+{% endblock body %}
+{% block custom_scripts %}
+$(".collapse.history").on('hide.bs.collapse', function (e) {
+  if ($(this).is(e.target)) {
+    var element_id = this.id.match(/\d+/);
+    $('#collapse-icon'+ element_id).removeClass("fa-caret-up");
+    $('#collapse-icon'+ element_id).addClass("fa-caret-down");
+    }
+});
+$(".collapse.history").on('show.bs.collapse', function (e) {
+  if ($(this).is(e.target)) {
+    var element_id = this.id.match(/\d+/);
+    $('#collapse-icon'+ element_id).removeClass("fa-caret-down");
+    $('#collapse-icon'+element_id).addClass("fa-caret-up");
+}});
+{% endblock %}
+<!-- End Show Ticket-->

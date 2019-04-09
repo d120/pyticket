@@ -1,0 +1,29 @@
+
+
+.alert ul {
+	margin: 0px;
+	padding: 0px;
+}
+
+.alert li {
+	list-style: none
+}
+
+.invalid-feedback {
+	display: inline !important;
+}
+
+blockquote {
+		margin-bottom: 16px;
+		margin-top: 0;
+		border-left: .25em solid #dfe2e5;
+		padding: 0 1em;
+}
+/* used in rejected_ticket.html for user assignment */
+#selectUser{
+ width:100px;
+}
+
+#selectUser option{
+  width:120px;
+}

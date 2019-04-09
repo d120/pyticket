@@ -1,0 +1,128 @@
+[
+  {
+    "model": "ticket.ticket",
+    "pk": 1,
+    "fields": {
+      "name": "Test ticket #1",
+      "state": "open",
+      "assigned_user": 1,
+      "time_assign_user": "2019-02-14T00:44:04.988Z",
+      "assigned_group": 1,
+      "accepted": true,
+      "text": "An h1 header\n============\n\nParagraphs are separated by a blank line.\n\n2nd paragraph. *Italic*, **bold**, and `monospace`. Itemized lists\nlook like:\n\n  * this one\n  * that one\n  * the other one\n\nNote that --- not considering the asterisk --- the actual text\ncontent starts at 4-columns in.\n\n> Block quotes are\n> written like so.\n>\n> They can span multiple paragraphs,\n> if you like.\n\nUse 3 dashes for an em-dash. Use 2 dashes for ranges (ex., \"it's all\nin chapters 12--14\"). Three dots ... will be converted to an ellipsis.\nUnicode is supported. ☺\n\n\n\nAn h2 header\n------------\n\nHere's a numbered list:\n\n 1. first item\n 2. second item\n 3. third item\n\nNote again how the actual text starts at 4 columns in (4 characters\nfrom the left side). Here's a code sample:\n\n    # Let me re-iterate ...\n    for i in 1 .. 10 { do-something(i) }\n\nAs you probably guessed, indented 4 spaces. By the way, instead of\nindenting the block, you can use delimited blocks, if you like:\n\n~~~\ndefine foobar() {\n    print \"Welcome to flavor country!\";\n}\n~~~\n\n(which makes copying & pasting easier). You can optionally mark the\ndelimited block for Pandoc to syntax highlight it:\n\n~~~python\nimport time\n# Quick, count to ten!\nfor i in range(10):\n    # (but not *too* quick)\n    time.sleep(0.5)\n    print(i)\n~~~\n\n\n\n### An h3 header ###\n\nNow a nested list:\n\n 1. First, get these ingredients:\n\n      * carrots\n      * celery\n      * lentils\n\n 2. Boil some water.\n\n 3. Dump everything in the pot and follow\n    this algorithm:\n\n        find wooden spoon\n        uncover pot\n        stir\n        cover pot\n        balance wooden spoon precariously on pot handle\n        wait 10 minutes\n        goto first step (or shut off burner when done)\n\n    Do not bump wooden spoon or it will fall.\n\nNotice again how text always lines up on 4-space indents (including\nthat last line which continues item 3 above).\n\nHere's a link to [a website](http://foo.bar), to a [local\ndoc](local-doc.html), and to a [section heading in the current\ndoc](#an-h2-header). Here's a footnote [^1].\n\n[^1]: Some footnote text.\n\nTables can look like this:\n\nName           Size  Material      Color\n------------- -----  ------------  ------------\nAll Business      9  leather       brown\nRoundabout       10  hemp canvas   natural\nCinderella       11  glass         transparent\n\nTable: Shoes sizes, materials, and colors.\n\n(The above is the caption for the table.) Pandoc also supports\nmulti-line tables:\n\n--------  -----------------------\nKeyword   Text\n--------  -----------------------\nred       Sunsets, apples, and\n          other red or reddish\n          things.\n\ngreen     Leaves, grass, frogs\n          and other things it's\n          not easy being.\n--------  -----------------------\n\nA horizontal rule follows.\n\n***\n\nHere's a definition list:\n\napples\n  : Good for making applesauce.\n\noranges\n  : Citrus!\n\ntomatoes\n  : There's no \"e\" in tomatoe.\n\nAgain, text is indented 4 spaces. (Put a blank line between each\nterm and  its definition to spread things out more.)\n\nHere's a \"line block\" (note how whitespace is honored):\n\n| Line one\n|   Line too\n| Line tree\n\nand images can be specified like so:\n\n![example image](example-image.jpg \"An exemplary image\")\n\nInline math equation: $\\omega = d\\phi / dt$. Display\nmath should get its own line like so:\n\n$$I = \\int \\rho R^{2} dV$$\n\nAnd note that you can backslash-escape any punctuation characters\nwhich you wish to be displayed literally, ex.: \\`foo\\`, \\*bar\\*, etc.",
+      "created_at": "2019-02-14T00:44:04.994Z",
+      "updated_at": "2019-02-14T00:44:04.994Z",
+      "priority": "normal",
+      "creator_user": 1,
+      "deadline": "2019-12-15"
+    }
+  },
+  {
+    "model": "ticket.ticket",
+    "pk": 2,
+    "fields": {
+      "name": "Test ticket 2",
+      "state": "done",
+      "assigned_user": 2,
+      "time_assign_user": "2019-02-14T10:09:14.222Z",
+      "assigned_group": null,
+      "accepted": true,
+      "text": "---\n__Advertisement :)__\n\n- __[pica](https://nodeca.github.io/pica/demo/)__ - high quality and fast image\n  resize in browser.\n- __[babelfish](https://github.com/nodeca/babelfish/)__ - developer friendly\n  i18n with plurals support and easy syntax.\n\nYou will like those projects!\n\n---\n\n# h1 Heading 8-)\n## h2 Heading\n### h3 Heading\n#### h4 Heading\n##### h5 Heading\n###### h6 Heading\n\n\n## Horizontal Rules\n\n___\n\n---\n\n***\n\n\n## Typographic replacements\n\nEnable typographer option to see result.\n\n(c) (C) (r) (R) (tm) (TM) (p) (P) +-\n\ntest.. test... test..... test?..... test!....\n\n!!!!!! ???? ,,  -- ---\n\n\"Smartypants, double quotes\" and 'single quotes'\n\n\n## Emphasis\n\n**This is bold text**\n\n__This is bold text__\n\n*This is italic text*\n\n_This is italic text_\n\n~~Strikethrough~~\n\n\n## Blockquotes\n\n\n> Blockquotes can also be nested...\n>> ...by using additional greater-than signs right next to each other...\n> > > ...or with spaces between arrows.\n\n\n## Lists\n\nUnordered\n\n+ Create a list by starting a line with `+`, `-`, or `*`\n+ Sub-lists are made by indenting 2 spaces:\n  - Marker character change forces new list start:\n    * Ac tristique libero volutpat at\n    + Facilisis in pretium nisl aliquet\n    - Nulla volutpat aliquam velit\n+ Very easy!\n\nOrdered\n\n1. Lorem ipsum dolor sit amet\n2. Consectetur adipiscing elit\n3. Integer molestie lorem at massa\n\n\n1. You can use sequential numbers...\n1. ...or keep all the numbers as `1.`\n\nStart numbering with offset:\n\n57. foo\n1. bar\n\n\n## Code\n\nInline `code`\n\nIndented code\n\n    // Some comments\n    line 1 of code\n    line 2 of code\n    line 3 of code\n\n\nBlock code \"fences\"\n\n```\nSample text here...\n```\n\nSyntax highlighting\n\n``` js\nvar foo = function (bar) {\n  return bar++;\n};\n\nconsole.log(foo(5));\n```\n\n## Tables\n\n| Option | Description |\n| ------ | ----------- |\n| data   | path to data files to supply the data that will be passed into templates. |\n| engine | engine to be used for processing templates. Handlebars is the default. |\n| ext    | extension to be used for dest files. |\n\nRight aligned columns\n\n| Option | Description |\n| ------:| -----------:|\n| data   | path to data files to supply the data that will be passed into templates. |\n| engine | engine to be used for processing templates. Handlebars is the default. |\n| ext    | extension to be used for dest files. |\n\n\n## Links\n\n[link text](http://dev.nodeca.com)\n\n[link with title](http://nodeca.github.io/pica/demo/ \"title text!\")\n\nAutoconverted link https://github.com/nodeca/pica (enable linkify to see)\n\n\n## Images\n\n![Minion](https://octodex.github.com/images/minion.png)\n![Stormtroopocat](https://octodex.github.com/images/stormtroopocat.jpg \"The Stormtroopocat\")\n\nLike links, Images also have a footnote style syntax\n\n![Alt text][id]\n\nWith a reference later in the document defining the URL location:\n\n[id]: https://octodex.github.com/images/dojocat.jpg  \"The Dojocat\"\n\n\n## Plugins\n\nThe killer feature of `markdown-it` is very effective support of\n[syntax plugins](https://www.npmjs.org/browse/keyword/markdown-it-plugin).\n\n\n### [Emojies](https://github.com/markdown-it/markdown-it-emoji)\n\n> Classic markup: :wink: :crush: :cry: :tear: :laughing: :yum:\n>\n> Shortcuts (emoticons): :-) :-( 8-) ;)\n\nsee [how to change output](https://github.com/markdown-it/markdown-it-emoji#change-output) with twemoji.\n\n\n### [Subscript](https://github.com/markdown-it/markdown-it-sub) / [Superscript](https://github.com/markdown-it/markdown-it-sup)\n\n- 19^th^\n- H~2~O\n\n\n### [\\<ins>](https://github.com/markdown-it/markdown-it-ins)\n\n++Inserted text++\n\n\n### [\\<mark>](https://github.com/markdown-it/markdown-it-mark)\n\n==Marked text==\n\n\n### [Footnotes](https://github.com/markdown-it/markdown-it-footnote)\n\nFootnote 1 link[^first].\n\nFootnote 2 link[^second].\n\nInline footnote^[Text of inline footnote] definition.\n\nDuplicated footnote reference[^second].\n\n[^first]: Footnote **can have markup**\n\n    and multiple paragraphs.\n\n[^second]: Footnote text.\n\n\n### [Definition lists](https://github.com/markdown-it/markdown-it-deflist)\n\nTerm 1\n\n:   Definition 1\nwith lazy continuation.\n\nTerm 2 with *inline markup*\n\n:   Definition 2\n\n        { some code, part of Definition 2 }\n\n    Third paragraph of definition 2.\n\n_Compact style:_\n\nTerm 1\n  ~ Definition 1\n\nTerm 2\n  ~ Definition 2a\n  ~ Definition 2b\n\n\n### [Abbreviations](https://github.com/markdown-it/markdown-it-abbr)\n\nThis is HTML abbreviation example.\n\nIt converts \"HTML\", but keep intact partial entries like \"xxxHTMLyyy\" and so on.\n\n*[HTML]: Hyper Text Markup Language\n\n### [Custom containers](https://github.com/markdown-it/markdown-it-container)\n\n::: warning\n*here be dragons*\n:::\n",
+      "created_at": "2019-02-14T10:09:14.224Z",
+      "updated_at": "2019-02-14T10:09:14.224Z",
+      "priority": "high",
+      "creator_user": 1,
+      "deadline": null
+    }
+  },
+  {
+    "model": "ticket.ticket",
+    "pk": 3,
+    "fields": {
+      "name": "Test ticket 3",
+      "state": "done",
+      "assigned_user": null,
+      "time_assign_user": "2019-02-14T10:09:43.334Z",
+      "assigned_group": null,
+      "accepted": true,
+      "text": "Test ticket 3Test ticket 3Test ticket 3Test ticket 3Test ticket 3Test ticket 3",
+      "created_at": "2019-02-14T10:09:43.343Z",
+      "updated_at": "2019-02-14T10:09:58.685Z",
+      "priority": "low",
+      "creator_user": 1,
+      "deadline": "2012-11-11",
+      "rejected": true,
+      "dispatcher": 1
+    }
+  },
+  {
+    "model": "ticket.ticket",
+    "pk": 4,
+    "fields": {
+      "name": "Test ticket 4",
+      "state": "open",
+      "assigned_user": 1,
+      "time_assign_user": "2019-02-14T10:09:43.334Z",
+      "assigned_group": null,
+      "accepted": false,
+      "text": "Test ticket 3Test ticket 3Test ticket 3Test ticket 3Test ticket 3Test ticket 3",
+      "created_at": "2019-02-14T10:09:43.343Z",
+      "updated_at": "2019-02-14T10:09:58.685Z",
+      "priority": "low",
+      "creator_user": 1,
+      "deadline": "2012-11-11"
+    }
+  },
+  {
+    "model": "ticket.ticket",
+    "pk": 5,
+    "fields": {
+      "name": "Test ticket 5",
+      "state": "open",
+      "assigned_user": 1,
+      "time_assign_user": "2019-02-14T10:09:43.334Z",
+      "assigned_group": null,
+      "accepted": false,
+      "text": "Test ticket 3Test ticket 3Test ticket 3Test ticket 3Test ticket 3Test ticket 3",
+      "created_at": "2019-02-14T10:09:43.343Z",
+      "updated_at": "2019-02-14T10:09:58.685Z",
+      "priority": "low",
+      "creator_user": 1,
+      "deadline": "2012-11-11",
+      "recurrences": "RDATE:20190330T210000Z"
+    }
+  },
+  {
+    "model": "ticket.comment",
+    "pk": 1,
+    "fields": {
+      "ticket": 1,
+      "user": 1,
+      "comment": "Test comment 1",
+      "created_at": "2019-02-14T10:08:39.778Z",
+      "updated_at": "2019-02-14T10:08:39.778Z"
+    }
+  },
+  {
+    "model": "ticket.comment",
+    "pk": 2,
+    "fields": {
+      "ticket": 1,
+      "user": 1,
+      "comment": "Test comment 2",
+      "created_at": "2019-02-14T10:08:46.419Z",
+      "updated_at": "2019-02-14T10:08:46.419Z"
+    }
+  },
+    {
+    "model": "ticket.comment",
+    "pk": 3,
+    "fields": {
+      "ticket": 2,
+      "user": 2,
+      "comment": "Test comment 3",
+      "created_at": "2019-02-14T10:08:46.419Z",
+      "updated_at": "2019-02-14T10:08:46.419Z"
+    }
+  }
+]

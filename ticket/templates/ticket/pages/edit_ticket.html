@@ -1,0 +1,53 @@
+{% extends "site_base.html" %}
+{% load i18n %}
+{% block head_title %}{% trans "Ticket bearbeiten" %}{% endblock %}
+{% load crispy_forms_tags %}
+{% load static %}
+
+
+<!-- Edit Ticket -->
+{% block body %}
+<div class="card shadow mb-4">
+    <div class="card-header py-3">
+        <h6 class="m-0 font-weight-bold text-primary">
+            {% trans "Ticket bearbeiten" %}</h6>
+    </div>
+    <div class="card-body">
+        {% load crispy_forms_tags %}
+        <form method="POST"
+              action="{% url 'edit_ticket' ticket_id=ticket.id %}">
+            {% csrf_token %}
+            {{ form|crispy }}
+            <p>
+                <a class="btn btn-outline-secondary" data-toggle="collapse"
+                   href="#collapseRec" role="button" aria-expanded="false"
+                   aria-controls="collapseRec"
+                   title="{% trans "Öffnet ein JScript Widget zum Bearbeiten der Wiederholung." %}">
+                    {% trans "Wiederholungen" %}
+                </a>
+            </p>
+            <div class="collapse" id="collapseRec">
+                <div class="card mb-5">
+                    <textarea readonly="readonly" name="recurrences" cols="40"
+                              rows="10" class="recurrence-widget"
+                              id="id_recurrences">{{ recurrences }}</textarea>
+                    <script type="text/javascript"
+                            src="{% static 'ticket/js/recurrenceWidget.js' %}"
+                            defer></script>
+                </div>
+            </div>
+            <button href="{% url 'dashboard' %}" type="submit"
+                    class="btn btn-primary">{% trans "Speichern" %}
+            </button>
+            <a type="button" class="btn btn-primary"
+               href="{% url 'dashboard' %}"
+               title="{% trans "Abbruch des Editierens und Weiterleitung zum Dashboard." %}">
+                {% trans "Abbrechen" %}</a>
+        </form>
+    </div>
+</div>
+<script type="text/javascript"
+        src="{% static 'ticket/js/markdown_editor/init_editor.js' %}" defer>
+</script>
+{% endblock %}
+<!-- End Edit Ticket -->

@@ -1,0 +1,21 @@
+{% extends "site_base.html" %}
+{% load i18n %}
+{% block head_title %}Edit Group{% endblock %}
+{% load crispy_forms_tags %}
+
+<!-- Start Edit Group-->
+{% block body %}
+<form method="POST" action="{% url 'edit_group' group_id=group.id %}">
+    {% csrf_token %}
+    {{ form.media }}
+    {{ form|crispy }}
+    <button href="{% url 'dashboard_group' group_id=group.id  %}" type="submit" class="btn btn-primary" title="{% trans "Änderungen speichern" %}">
+        {% trans "Speichern" %}
+    </button>
+    <a type="button" class="btn btn-primary"
+       href="{% url 'dashboard' %}"
+       title="{% trans "Abbruch des Editierens und Weiterleitung zum Dashboard." %}">
+        {% trans "Abbrechen" %}</a>
+</form>
+{% endblock body %}
+<!-- End Edit Group-->

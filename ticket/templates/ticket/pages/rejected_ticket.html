@@ -1,0 +1,68 @@
+{% extends "site_base.html" %}
+{% load i18n %}
+{% block head_title %}Dashboard{% endblock %}
+{% load crispy_forms_tags %}
+{% load static %}
+
+<!-- Rejected Tickets-->
+{% block body %}
+<div class="card shadow mb-5">
+    <div class="card-header py-3">
+        <h6 class="m-0 font-weight-bold text-primary"
+          title="{% trans "Zeigt alle abgelehnten Tickets an, die von mir erstellt oder zugewiesen sind." %}">
+            {% trans "Abgelehnte Tickets" %}
+        </h6>
+    </div>
+    <div class="card-body">
+        <div class="table-responsive">
+            <table class="table table-bordered" id="dataTable" width="100%"
+                   cellspacing="0">
+                <thead>
+                <tr>
+                    <th>{% trans "Ticketname" %}</th>
+                    <th>{% trans "Beschreibung" %}</th>
+                    <th>{% trans "Priorität" %}</th>
+                    <th>{% trans "Deadline" %}</th>
+                    <th>{% trans "Zuweisen" %}</th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for ticket in tickets %}
+                <tr>
+                    <td>
+                        <a href="{% url 'show_ticket' ticket_id=ticket.id %}">
+                            {{ticket.name|truncatechars:42}}
+                        </a>
+                    </td>
+                    <td>{{ticket.text|truncatechars:42}}</td>
+                    <td>{{ticket.priority}}</td>
+                    <td>{{ticket.deadline}}</td>
+                    <td width="130">
+                        <form method="POST" action="/rejected_ticket/"
+                              class="form-row">
+                            {% csrf_token %}
+                            {{ crispy }}
+                            <select class="form-control form-control-sm" required
+                                    id="selectUser" name="selectUser" size="1">
+                                {% for user in users %}
+                                <option value="{{ user.id }}" {% if request.user == user %}selected{% endif %}>
+                                    {{ user }}
+                                </option>
+                                {% endfor %}
+                            </select>
+                            <button type="submit" name="_assign"
+                                    value="{{ticket.id}}"
+                                    class="btn btn-info form-control-col-1 form-control-sm"
+                                    title="{% trans "Weise jemandem das Ticket zu." %}"><i
+                                    class="fas fa-user-plus"></i></button>
+                        </form>
+                    </td>
+                </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+{% endblock %}
+<!-- End Rejected Tickets -->

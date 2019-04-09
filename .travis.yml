@@ -1,0 +1,21 @@
+language: python
+
+services:
+  - mysql
+  
+python:
+  - "3.4"
+  
+install:
+  - pip install -r ./requirements.txt
+  - pip install coveralls
+  
+matrix:
+  fast_finish: true
+  
+script: 
+  - coverage run --source='.' manage.py test
+  - coverage report
+  
+after_success:
+  - coveralls

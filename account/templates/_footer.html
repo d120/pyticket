@@ -1,0 +1,30 @@
+{% load i18n %}
+
+<!-- Footer -->
+<footer class="sticky-footer bg-white">
+    <div class="container my-auto">
+        <div class="copyright text-center my-auto">
+            <span>
+                {% trans "Aufgabenverwaltung besser machen!" %}
+            </span>
+        </div>
+        <div class=text-md-right>
+          <ul class="list-unstyled">
+              <li>
+                {% trans "Handbuch/User Guide"%}
+                <a href="https://github.com/frederikroeper/bp/blob/master/docs/QS/Nutzerstudie/Handbuch.pdf"
+                  title="{% trans "Link zum Handbuch"%}">
+                  <i class="fas fa-info-circle"></i>
+                </a>
+              </li>
+              <li>
+                {% trans "Zur Quelle " %}
+                <a href="https://github.com/frederikroeper/bp/">
+                  <i class="fab fa-github"></i>
+                </a>
+              </li>
+           </ul>
+         </div>
+        </div>
+</footer>
+<!-- End Footer -->

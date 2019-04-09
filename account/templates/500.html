@@ -1,0 +1,11 @@
+{% extends "site_base.html" %}
+{% load i18n %}
+
+{% block head_title %}{% trans "Server Error" %}{% endblock %}
+
+{% block body %}
+<header class="jumbotron subhead" id="overview">
+    <h1>{% trans "Etwas ist schief gegangen" %}</h1>
+    <p class="lead">{% trans "Ein Fehler ist aufgetreten!" %}</p>
+</header>
+{% endblock %}

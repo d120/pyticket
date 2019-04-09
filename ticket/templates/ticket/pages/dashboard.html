@@ -1,0 +1,222 @@
+{% extends "site_base.html" %}
+{% load i18n %}
+{% block head_title %}Dashboard{% endblock %}
+{% load crispy_forms_tags %}
+{% load static %}
+{% load injection_tags %}
+
+<!-- Dashboard -->
+{% block body %}
+<div class="container-fluid">
+    <!-- Show Case -->
+    <div class="row">
+        <!-- Open Tickets -->
+        <div class="col-xl-3 col-md-6 mb-4">
+            <div class="card border-left-primary shadow h-100 py-2">
+                <a href="/my/">
+                    <div class="card-body">
+                        <div class="row no-gutters align-items-center">
+                            <div class="col mr-2">
+                                <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
+                                    {% trans "Meine offenen Tickets" %}
+                                </div>
+                                <div class="h5 mb-0 font-weight-bold text-gray-800">
+                                    {{openTicketsCount}}
+                                </div>
+                            </div>
+                            <div class="col-auto">
+                                <i class="fas fa-file fa-2x text-gray-300"></i>
+                            </div>
+                        </div>
+                    </div>
+                </a>
+            </div>
+        </div>
+        <!-- End Open Tickets -->
+
+        <!-- Inbox Tickets -->
+        <div class="col-xl-3 col-md-6 mb-4">
+            <div class="card border-left-primary shadow h-100 py-2">
+                <a href="/inbox/">
+                    <div class="card-body">
+                        <div class="row no-gutters align-items-center">
+                            <div class="col mr-2">
+                                <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
+                                    {% trans "Inbox Tickets" %}
+                                </div>
+                                <div class="h5 mb-0 font-weight-bold text-gray-800">
+                                    {{ request.user|inbox_count }}
+                                </div>
+                            </div>
+                            <div class="col-auto">
+                                <i class="fas fa-envelope fa-2x text-gray-300"></i>
+                            </div>
+                        </div>
+                    </div>
+                </a>
+            </div>
+        </div>
+        <!-- End Inbox Tickets -->
+
+        <!-- Deadline -->
+        <div class="col-xl-3 col-md-6 mb-4">
+            <div class="card border-left-primary shadow h-100 py-2">
+                <a href="/search/?name_text=&deadline_after={{ day }}.{{ month }}.{{ year }}&deadline_before={{ day }}.{{ month }}.{{ year }}&state=open&assigned_user={{ user.id }}&assigned_group=&accepted=1&priority=&creator_user="
+                  title="{% trans "Anzahl der von mir akzeptierten Tickets, deren Deadline morgen ist." %}">
+                    <div class="card-body">
+                        <div class="row no-gutters align-items-center">
+                            <div class="col mr-2">
+                                <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
+                                    {% trans "Deadline Tickets" %}
+                                </div>
+                                <div class="h5 mb-0 font-weight-bold text-gray-800">
+                                    {{ request.user|deadline_count }}
+                                </div>
+                            </div>
+                            <div class="col-auto">
+                                <i class="fas fa-exclamation fa-2x text-gray-300"></i>
+                            </div>
+                        </div>
+                    </div>
+                </a>
+            </div>
+        </div>
+        <!-- End Deadline -->
+
+        <!-- Rejected Tickets -->
+        <div class="col-xl-3 col-md-6 mb-4">
+            <div class="card border-left-primary shadow h-100 py-2">
+                <a href="/rejected_ticket/">
+                    <div class="card-body">
+                        <div class="row no-gutters align-items-center">
+                            <div class="col mr-2">
+                                <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
+                                    {% trans "Abgelehnte Tickets" %}
+                                </div>
+                                <div class="h5 mb-0 font-weight-bold text-gray-800">
+                                    {{ request.user|rejected_count }}
+                                </div>
+                            </div>
+                            <div class="col-auto">
+                                <i class="fas fa-comments fa-2x text-gray-300"></i>
+                            </div>
+                        </div>
+                    </div>
+                </a>
+            </div>
+        </div>
+        <!-- End Rejected Tickets -->
+    </div>
+    <!-- End Show Case -->
+
+    <!-- Monitor -->
+    <div class="row">
+
+        <!-- Open Tickets-->
+        <div class="col-xl-8 col-lg-7">
+            <div class="card shadow mb-4">
+                <div class="card-header py-3">
+                    <h6 class="m-0 font-weight-bold text-primary">
+                        {% trans "Meine unerledigten Tickets" %}</h6>
+                </div>
+                <div class="card-body">
+                    <div class="table-responsive">
+                        <table class="table table-bordered" id="dataTable"
+                               width="100%" cellspacing="0">
+                            <thead>
+                            <tr>
+                                <th>{% trans "Ticketname" %}</th>
+                                <th>{% trans "Beschreibung" %}</th>
+                                <th>{% trans "Deadline" %}</th>
+                                <th></th>
+                            </tr>
+                            </thead>
+
+                            <tbody>
+                            {% for ticket in openTickets %}
+                            <tr>
+                                <td>
+                                    <a href="{% url 'show_ticket' ticket_id=ticket.id %}">
+                                        {{ticket.name|truncatechars:37}}
+                                    </a>
+                                </td>
+                                <td>{{ticket.text|truncatechars:37}}</td>
+                                <td>{{ticket.deadline}}</td>
+                                <td>
+                                    <a href="{% url 'edit_ticket' ticket_id=ticket.id%}"
+                                       class="btn btn-info btn-circle btn-sm"
+                                       title="{% trans "Das Ticket bearbeiten." %}">
+                                        <i class="fas fa-edit"></i>
+                                    </a>
+
+                                    <a href="/ticket/{{ ticket.id }}#id_comment"
+                                       class="btn btn-info btn-circle btn-sm"
+                                       title="{% trans "Das Ticket kommentieren." %}">
+                                        <i class="fas fa-comment"></i>
+                                    </a>
+
+                                    <a href="{% url 'close_ticket' ticket_id=ticket.id %}?next={% url 'dashboard' %}"
+                                       class="btn btn-success btn-circle btn-sm"
+                                       title="{% trans "Das Ticket als erledigt markieren." %}">
+                                        <i class="fas fa-check"></i>
+                                    </a>
+                                </td>
+                            </tr>
+                            {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- End Open Tickets -->
+
+        <!-- Current Goals -->
+        <div class="col-xl-4 col-lg-5">
+            <div class="card shadow mb-4">
+                <div class="card-header py-3">
+                    <h6 class="m-0 font-weight-bold text-primary">
+                        {% trans "Aktuelle Ziele" %}
+                    </h6>
+                </div>
+
+                <div class="card-body">
+                    {% for el, elv in dict.items %}
+                    <h4 class="small font-weight-bold">
+                        {{el}}
+                        <span class="float-right">
+                            {{elv}}%
+                        </span></h4>
+                    <div class="progress mb-4">
+                        {% if elv <= 20 %}
+                        <div class="progress-bar bg-danger" role="progressbar"
+                             style="width: {{elv}}%" aria-valuenow="50"
+                             aria-valuemin="0" aria-valuemax="100"></div>
+                        {% elif elv <= 40%}
+                        <div class="progress-bar bg-warning" role="progressbar"
+                             style="width: {{elv}}%" aria-valuenow="50"
+                             aria-valuemin="0" aria-valuemax="100"></div>
+                        {% elif elv <= 60%}
+                        <div class="progress-bar bg-primary" role="progressbar"
+                             style="width: {{elv}}%" aria-valuenow="50"
+                             aria-valuemin="0" aria-valuemax="100"></div>
+                        {% elif elv <= 80 %}
+                        <div class="progress-bar bg-info" role="progressbar"
+                             style="width: {{elv}}%" aria-valuenow="50"
+                             aria-valuemin="0" aria-valuemax="100"></div>
+                        {% elif elv <= 100 %}
+                        <div class="progress-bar bg-success" role="progressbar"
+                             style="width: {{elv}}%" aria-valuenow="50"
+                             aria-valuemin="0" aria-valuemax="100"></div>
+                        {% endif%}
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+        <!-- End Current Goals -->
+    </div>
+    <!-- End Monitor -->
+</div>
+{% endblock body %}
+<!-- End Dashboard -->
