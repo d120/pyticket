@@ -104,6 +104,7 @@ class TicketViewsTest(TicketTest):
         data['assigned_group'] = 3
         data['assigned_user'] = 3
         data['priority'] = 'normal'
+        data['deadline'] = ''
         resp = self.client.post(url, data, follow=True)
         self.assertEqual(resp.status_code, 200)
         self.assertIn("aktualisiert", str(resp.content))
