@@ -1,5 +1,5 @@
 from django.urls import path
-from .views import ShowTicketView, NewTicketView, PendingTicketView, EditTicketView, RestoreTicketView, CloseTicketView, DashboardView, MyTicketsView, RecurringTicketView, rec_cron, RejectedTicketView, SearchTicketView
+from .views import ShowTicketView, NewTicketView, PendingTicketView, EditTicketView, RestoreTicketView, CloseTicketView, DashboardView, MyTicketsView, RecurringTicketView, RejectedTicketView, SearchTicketView
 
 
 urlpatterns = [
@@ -13,7 +13,6 @@ urlpatterns = [
     path('search/', SearchTicketView.as_view(), name="search"),
     path('my/', MyTicketsView.as_view(), name="my_tickets"),
     path('recurring/', RecurringTicketView.as_view(), name="recurring_ticket"),
-    path('recurring/cron', rec_cron,  name='recurrence_cron'),
     path('rejected_ticket/', RejectedTicketView.as_view(), name="rejected_ticket"),
 
 ]

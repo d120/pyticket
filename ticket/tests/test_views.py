@@ -214,16 +214,3 @@ class TicketViewsTest(TicketTest):
         url = reverse('rejected_ticket')
         resp = self.client.post(url, {'_assign': 50, 'selectUser': 2}, follow=True)
         self.assertEqual(resp.status_code, 200)
-
-    def test_rec_cron(self):
-        # no access
-        url = reverse('recurrence_cron')
-        resp = self.client.get(url)
-        self.assertEqual(resp.status_code, 200)
-
-        try:
-            url = reverse('recurrence_cron')
-            resp = self.client.get(url,  {'t': 'e7d3685715939842749cc27b38d0ccb9706d4d14a5304ef9eee093780eab5df9'})
-            self.assertEqual(resp.status_code, 200)
-        except:
-            pass

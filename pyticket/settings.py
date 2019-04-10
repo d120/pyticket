@@ -70,6 +70,7 @@ INSTALLED_APPS = [
     'recurrence',
     'ajax_select',
     'bleach',
+    'pyticket'
 ]
 CRISPY_TEMPLATE_PACK = 'bootstrap4'
 

@@ -44,10 +44,6 @@ class TestUrls(TestCase):
         path = reverse('recurring_ticket')
         assert resolve(path).view_name == 'recurring_ticket'
 
-    def test_recurrence_cron_ticket_url(self):
-        path = reverse('recurrence_cron')
-        assert resolve(path).view_name == 'recurrence_cron'
-
     def test_rejected_ticket_url(self):
         path = reverse('rejected_ticket')
         assert resolve(path).view_name == 'rejected_ticket'

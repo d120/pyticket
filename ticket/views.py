@@ -579,67 +579,6 @@ class RejectedTicketView(LoginRequiredMixin, View):
         return HttpResponseRedirect('/rejected_ticket/')
 
 
-def rec_cron(request):
-    """
-    cron job for sending summary mails to users, deadline notification
-    and recurring tickets
-    param: the request from user
-    """
-    if request.GET.get('t') != 'e7d3685715939842749cc27b38d0ccb9706d4d14a5304ef9eee093780eab5df9':
-        return HttpResponse("No Access rights")
-    # retrieve all recurring tickets
-    tickets = Ticket.objects.exclude(recurrences__isnull=True).exclude(
-        recurrences__exact='')
-    # iterate over the recurring tickets
-    for ticket in tickets:
-        tz = pytz.timezone('Europe/Berlin')
-        today = datetime.combine(datetime.now(), datetime.min.time())
-        today = tz.localize(today)
-        # get the next occurences of the ticket
-        occ = ticket.recurrences.after(today, inc=True,
-            dtstart=datetime(2010,1,1,0,0,0).replace(tzinfo=pytz.utc))
-        # get the next day
-        tomorrow = today + timedelta(days=1)
-        # if next occurence is tomorrow
-        if occ.date() == tomorrow.date():
-            # create a new duplicate of the ticket
-            dup = ticket
-            dup.pk = None
-            dup.id = None
-            dup.state = 'open'
-            dup.assigned_user = None
-            dup.time_assign_user = None
-            dup.accepted = False
-            dup.created_at = datetime.now()
-            dup.updated_at = datetime.now()
-            dup.deadline = None
-            dup.recurrences = ''
-            dup.save()
-
-    # notify users if deadline is reached
-    tickets_notify = Ticket.objects.filter(accepted=True, deadline=datetime.today())
-    for ticket in tickets_notify:
-        send_ticket_deadline_notification(ticket)
-
-    # send email summary
-    users = MyUser.objects.all()
-    for user in users:
-
-        emails_to_send = EmailBucket.objects.filter(send_to=user, sent=False)
-        if emails_to_send:
-            message = ""
-            for email in emails_to_send:
-                message += email.message + "\n"
-                email.sent = True
-                email.save()
-
-            subject = "Deine Tägliche Zusammenfassung"
-
-            send_email_now([].append(user.email), subject, message)
-
-
-    return HttpResponse("Done.")
-
 def create_ticket_log(ticket, user, state, message=None, changes=None):
     log = TicketLog()
     log.ticket = ticket
