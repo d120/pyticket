@@ -17,7 +17,7 @@ from django.contrib.messages import constants as messages
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
-BASE_URL = "http://127.0.0.1:8000"
+BASE_URL = "d120.de/pyticket"
 
 # Localization for Recurrence Widget
 RECURRENCE_I18N_URL = "javascript-catalog"
