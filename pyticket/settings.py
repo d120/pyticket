@@ -175,7 +175,7 @@ AUTH_LDAP_BIND_DN = "cn=pyticket,ou=Services,dc=fachschaft,dc=informatik,dc=tu-d
 AUTH_LDAP_BIND_PASSWORD = secrets.AUTH_LDAP_BIND_PASSWORD
 AUTH_LDAP_USER_SEARCH = LDAPSearch("ou=People,dc=fachschaft,dc=informatik,dc=tu-darmstadt,dc=de",
     ldap.SCOPE_SUBTREE, "(uid=%(user)s)")
-AUTH_LDAP_GROUP_SEARCH = LDAPSearch("ou=Group,dc=fachschaft,dc=informatik,dc=tu-darmstadt,dc=de",:
+AUTH_LDAP_GROUP_SEARCH = LDAPSearch("ou=Group,dc=fachschaft,dc=informatik,dc=tu-darmstadt,dc=de",
     ldap.SCOPE_SUBTREE, "(objectClass=groupOfNames)"
 )
 
