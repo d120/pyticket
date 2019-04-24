@@ -29,7 +29,8 @@ DATABASES = {
 }
 
 STATIC_URL = '/pyticket/static/'
-
+LOGIN_URL = '/pyticket/accounts/login/'
+MEDIA_URL = '/pyticket/media/'
 
 SERVER_EMAIL = "pyticket@fachschaft.informatik.tu-darmstadt.de"
 DEFAULT_FROM_EMAIL = SERVER_EMAIL
