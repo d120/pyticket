@@ -142,22 +142,6 @@ AUTHENTICATION_BACKENDS = [
     'django.contrib.auth.backends.ModelBackend'
 ]
 
-# AUTH_LDAP_SERVER_URI = ""
-
-# AUTH_LDAP_BIND_DN = ""
-# AUTH_LDAP_BIND_PASSWORD = ""
-# AUTH_LDAP_USER_SEARCH = LDAPSearch("ou=users,dc=example,dc=com",
-#     ldap.SCOPE_SUBTREE, "(uid=%(user)s)")
-
-
-# AUTH_LDAP_USER_SEARCH = LDAPSearchUnion(
-#     LDAPSearch("ou=users,dc=example,dc=com", ldap.SCOPE_SUBTREE, "(uid=%(user)s)"),
-#     LDAPSearch("ou=otherusers,dc=example,dc=com", ldap.SCOPE_SUBTREE, "(uid=%(user)s)"),
-# )
-
-# Internationalization
-# https://docs.djangoproject.com/en/2.1/topics/i18n/
-
 LANGUAGE_CODE = 'de-de'
 
 TIME_ZONE = 'Europe/Berlin'
@@ -182,4 +166,27 @@ STATICFILES_DIRS = (
 # change Bootstrap Error tag String representation from error to danger
 MESSAGE_TAGS = {
     messages.ERROR: 'danger'
+}
+
+
+# LDAP Config
+AUTH_LDAP_SERVER_URI = "ldap://ldap.d120.de"
+AUTH_LDAP_BIND_DN = "cn=pyticket,ou=Services,dc=fachschaft,dc=informatik,dc=tu-darmstadt,dc=de"
+AUTH_LDAP_BIND_PASSWORD = secrets.AUTH_LDAP_BIND_PASSWORD
+AUTH_LDAP_USER_SEARCH = LDAPSearch("ou=People,dc=fachschaft,dc=informatik,dc=tu-darmstadt,dc=de",
+    ldap.SCOPE_SUBTREE, "(uid=%(user)s)")
+AUTH_LDAP_GROUP_SEARCH = LDAPSearch("ou=Group,dc=fachschaft,dc=informatik,dc=tu-darmstadt,dc=de",:
+    ldap.SCOPE_SUBTREE, "(objectClass=groupOfNames)"
+)
+
+AUTH_LDAP_GROUP_TYPE = GroupOfNamesType()
+AUTH_LDAP_MIRROR_GROUPS = True
+
+AUTH_LDAP_USER_ATTR_MAP = {"first_name": "givenName", "last_name": "sn",
+        "email": "mail"}
+
+AUTH_LDAP_USER_FLAGS_BY_GROUP = {
+        "is_staff": "cn=fachschaft,ou=Group,dc=fachschaft,dc=informatik,dc=tu-darmstadt,dc=de",
+        "is_superuser": LDAPGroupQuery("cn=developers,ou=Group,dc=fachschaft,dc=informatik,dc=tu-darmstadt,dc=de") |
+                        LDAPGroupQuery("cn=fss,ou=Group,dc=fachschaft,dc=informatik,dc=tu-darmstadt,dc=de"))
 }
