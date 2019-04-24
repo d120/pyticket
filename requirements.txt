@@ -22,3 +22,5 @@ python-coveralls
 selenium
 pyvirtualdisplay
 mysqlclient==1.4.2
+django-auth-ldap==1.7.0
+python-ldap==3.2.0
