@@ -35,10 +35,10 @@ DEBUG = True
 
 ALLOWED_HOSTS = []
 
-EMAIL_HOST = 'smtp.webfaction.com'
+EMAIL_HOST = ''
 EMAIL_HOST_USER = ''
 EMAIL_HOST_PASSWORD = ''
-DEFAULT_FROM_EMAIL = 'Aufgabenverwaltung <bp@frederikroeper.com>'
+DEFAULT_FROM_EMAIL = 'Aufgabenverwaltung <pyticket@d120.de>'
 EMAIL_USE_TLS = True
 
 # EMAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"
@@ -46,7 +46,7 @@ EMAIL_BACKEND = 'django.core.mail.backends.filebased.EmailBackend'
 EMAIL_FILE_PATH = 'debug-email-messages/'
 
 EMAIL_FOOTER = "TU Darmstadt Fachschaft Informatik"
-ADMIN_EMAIL = "frederik.roeper@stud.tu-darmstadt.de"
+ADMIN_EMAIL = "fss@fachschaft.informatik.tu-darmstadt.de"
 
 EMAIL_TAG = "[Ticketsystem]"
 
