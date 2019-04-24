@@ -29,7 +29,7 @@
 
     <!-- Account Bar Navbar -->
     <ul class="navbar-nav ml-auto">
-        <form class="form-inline my-2 my-lg-0" action="/search" method="get">
+        <form class="form-inline my-2 my-lg-0" action="{% url 'search' %}" method="get">
             <div class="d-none d-sm-block">
                 <input class="form-control form-control-sm" type="search"
                        placeholder="Suche Tickets" aria-label="Search"
@@ -147,7 +147,7 @@
             <!-- Dropdown User -->
             <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in"
                  aria-labelledby="userDropdown">
-                <a class="dropdown-item" href="/accounts/settings/">
+                <a class="dropdown-item" href="{% url 'settings' %}">
                     <i class="fas fa-cogs fa-sm fa-fw mr-2 text-gray-400">
                     </i>
                     {% trans "Einstellungen" %}
