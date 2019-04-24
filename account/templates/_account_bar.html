@@ -86,7 +86,7 @@
                 <a class="dropdown-item d-flex align-items-center"
                    href="{% url 'show_ticket' ticket_id=ticket.id %}">
                     <div class="dropdown-list-image mr-3">
-                        <img class="rounded-circle" src="/static/pic/pic.jpg"
+                        <img class="rounded-circle" src="{% static 'pic/pic.jpg' %}"
                              alt="">
                         <div class="status-indicator bg-success">
                         </div>
