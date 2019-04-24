@@ -13,7 +13,7 @@
         <!-- Open Tickets -->
         <div class="col-xl-3 col-md-6 mb-4">
             <div class="card border-left-primary shadow h-100 py-2">
-                <a href="/my/">
+                <a href="{% url 'my_tickets' %}">
                     <div class="card-body">
                         <div class="row no-gutters align-items-center">
                             <div class="col mr-2">
@@ -37,7 +37,7 @@
         <!-- Inbox Tickets -->
         <div class="col-xl-3 col-md-6 mb-4">
             <div class="card border-left-primary shadow h-100 py-2">
-                <a href="/inbox/">
+                <a href="{% url 'inbox_ticket' %}">
                     <div class="card-body">
                         <div class="row no-gutters align-items-center">
                             <div class="col mr-2">
@@ -86,7 +86,7 @@
         <!-- Rejected Tickets -->
         <div class="col-xl-3 col-md-6 mb-4">
             <div class="card border-left-primary shadow h-100 py-2">
-                <a href="/rejected_ticket/">
+                <a href="{% url 'rejected_ticket' %}">
                     <div class="card-body">
                         <div class="row no-gutters align-items-center">
                             <div class="col mr-2">
