@@ -21,3 +21,4 @@ bleach
 python-coveralls
 selenium
 pyvirtualdisplay
+mysqlclient==1.4.2
