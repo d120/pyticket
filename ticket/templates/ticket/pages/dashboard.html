@@ -61,7 +61,7 @@
         <!-- Deadline -->
         <div class="col-xl-3 col-md-6 mb-4">
             <div class="card border-left-primary shadow h-100 py-2">
-                <a href="/search/?name_text=&deadline_after={{ day }}.{{ month }}.{{ year }}&deadline_before={{ day }}.{{ month }}.{{ year }}&state=open&assigned_user={{ user.id }}&assigned_group=&accepted=1&priority=&creator_user="
+                <a href="{% url 'search' %}?name_text=&deadline_after={{ day }}.{{ month }}.{{ year }}&deadline_before={{ day }}.{{ month }}.{{ year }}&state=open&assigned_user={{ user.id }}&assigned_group=&accepted=1&priority=&creator_user="
                   title="{% trans "Anzahl der von mir akzeptierten Tickets, deren Deadline morgen ist." %}">
                     <div class="card-body">
                         <div class="row no-gutters align-items-center">
@@ -143,13 +143,13 @@
                                 <td>{{ticket.text|truncatechars:37}}</td>
                                 <td>{{ticket.deadline}}</td>
                                 <td>
-                                    <a href="{% url 'edit_ticket' ticket_id=ticket.id%}"
+                                    <a href="{% url 'edit_ticket' ticket_id=ticket.id %}"
                                        class="btn btn-info btn-circle btn-sm"
                                        title="{% trans "Das Ticket bearbeiten." %}">
                                         <i class="fas fa-edit"></i>
                                     </a>
 
-                                    <a href="/ticket/{{ ticket.id }}#id_comment"
+                                    <a href="{% url 'show_ticket' ticket.id %}#id_comment"
                                        class="btn btn-info btn-circle btn-sm"
                                        title="{% trans "Das Ticket kommentieren." %}">
                                         <i class="fas fa-comment"></i>

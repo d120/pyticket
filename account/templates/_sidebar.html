@@ -95,7 +95,7 @@
                 <hr>
                 {% for g in groups %}
                 <a class="collapse-item text-truncate"
-                   href="/group/group/{{g.id}}/" title="{{ g.name }}"
+                   href="{% url 'dashboard_group' g.id %}" title="{{ g.name }}"
                    style="max-width: 300px;">
                     {{g.name}}
                 </a>
