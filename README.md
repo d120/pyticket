@@ -1,6 +1,6 @@
 # Make task management better! 
-[![Build Status](https://travis-ci.org/AlexZie/ticketsystem.svg?branch=master)](https://travis-ci.org/AlexZie/ticketsystem)
-[![Coverage Status](https://coveralls.io/repos/github/AlexZie/ticketsystem/badge.svg?branch=master)](https://coveralls.io/github/AlexZie/ticketsystem?branch=master)
+[![Build Status](https://travis-ci.org/d120/pyticket.svg?branch=master)](https://travis-ci.org/d120/pyticket)
+[![Coverage Status](https://coveralls.io/repos/github/d120/pyticket/badge.svg?branch=master)](https://coveralls.io/github/d120/pyticket?branch=master)
 # Installation
 
 Install a virtual environment:
