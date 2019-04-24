@@ -66,7 +66,7 @@ def send_email_now(to, subject, message, frm=settings.DEFAULT_FROM_EMAIL, pdf=No
 	rendered_subject = render_to_string("notification/email/subject.txt", { "message": message, "subject": subject })
 	rendered_message = render_to_string("notification/email/message.txt", { "message": message, "subject": subject })
 	# html_message = render_to_string("notification/email/email_base.html", { "message": message, "subject": subject, "settings": settings })
-	msg = EmailMultiAlternatives(subject, rendered_message, frm, [to])
+	msg = EmailMultiAlternatives(subject, rendered_message, frm, to)
 	# msg.attach_alternative(html_message, "text/html")
 	if pdf:
 		msg.attach_file(pdf)
