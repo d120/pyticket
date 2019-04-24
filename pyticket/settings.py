@@ -13,6 +13,8 @@ https://docs.djangoproject.com/en/2.1/ref/settings/
 import os
 from django.contrib.messages import constants as messages
 
+import pyticket.settings_secrets as secrets
+
 import ldap
 from django_auth_ldap.config import LDAPSearch, LDAPSearchUnion, LDAPGroupQuery, GroupOfNamesType
 
