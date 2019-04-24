@@ -58,7 +58,7 @@ def send_email(user, subject, message, frm=settings.DEFAULT_FROM_EMAIL, pdf=None
 		email.message = message
 		email.save()
 	else:
-		send_email_now([].append(user.email), subject, message, frm=settings.DEFAULT_FROM_EMAIL, pdf=None)
+		send_email_now([user.email], subject, message, frm=settings.DEFAULT_FROM_EMAIL, pdf=None)
 
 # send the email now
 def send_email_now(to, subject, message, frm=settings.DEFAULT_FROM_EMAIL, pdf=None):
