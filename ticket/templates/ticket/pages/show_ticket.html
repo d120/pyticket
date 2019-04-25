@@ -81,7 +81,7 @@
             {% trans "Bearbeiten" %}</a>
         <p></p>
         {% if not ticket.accepted and ticket.state == 'open' %}
-        <form method="POST" action="/inbox/">
+        <form method="POST" action="{% url 'inbox_ticket' %}">
             {% csrf_token %}
             <input type="hidden"
                    value="{% url 'show_ticket' ticket_id=ticket.id %}"
