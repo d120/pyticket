@@ -42,7 +42,7 @@
                         {{ticket.creator_user.last_name}}
                     </td>
                     <td>
-                        <form method="POST" action="/inbox/">
+                        <form method="POST" action="{% url "inbox_ticket" %}">
                             {% csrf_token %}
                             {{ crispy }}
                             <button type="submit" name="_acc"
@@ -74,7 +74,7 @@
                         {{ticket.creator_user.last_name}}
                     </td>
                     <td>
-                        <form method="POST" action="/inbox/">
+			    <form method="POST" action="{% url "inbox_ticket" %}">
                             {% csrf_token %}
                             {{ crispy }}
                             <button type="submit" name="_acc"
