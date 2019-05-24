@@ -158,3 +158,7 @@ STATICFILES_DIRS = (
 MESSAGE_TAGS = {
     messages.ERROR: 'danger'
 }
+
+# application-specific-cookies
+CSRF_COOKIE_NAME = 'pyticket_csrftoken'
+SESSION_COOKIE_NAME = 'pyticket_sessionid'
