@@ -38,8 +38,8 @@
                     <td>{{ticket.accepted}}</td>
                     <td>{{ticket.deadline}}</td>
                     <td>
-                        <form method="POST" action="/inbox/">
-                            <a href="/ticket/{{ ticket.id }}#id_comment"
+                        <form method="POST" action="{% url "inbox_ticket" %}">
+                            <a href="{% url "show_ticket" ticket.id %}#id_comment"
                                class="btn btn-info btn-circle btn-sm"
                                title="{% trans "Das Ticket kommentieren." %}">
                                 <i class="fas fa-comment"></i>

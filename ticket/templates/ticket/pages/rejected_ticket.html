@@ -38,7 +38,7 @@
                     <td>{{ticket.priority}}</td>
                     <td>{{ticket.deadline}}</td>
                     <td width="130">
-                        <form method="POST" action="/rejected_ticket/"
+                        <form method="POST" action="{% url "rejected_ticket" %}"
                               class="form-row">
                             {% csrf_token %}
                             {{ crispy }}

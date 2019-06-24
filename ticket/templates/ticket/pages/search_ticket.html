@@ -120,7 +120,7 @@
                     <td>{{ ticket.priority }}</td>
                     <td>{{ ticket.assigned_group }}</td>
                     <td>
-                        <a href="/ticket/{{ ticket.id }}#id_comment"
+                        <a href="{% url "show_ticket" ticket.id %}#id_comment"
                            class="btn btn-info btn-circle btn-sm"
                            title="{% trans "Das Ticket kommentieren." %}">
                             <i class="fas fa-comment"></i>

@@ -27,7 +27,7 @@
             </font>
             {% endif%}
             {% if ticket.assigned_group %}
-            <a href="/group/group/{{ ticket.assigned_group.id }}">
+            <a href="{% url "dashboard_group" ticket.assigned_group.id %}">
                 {{ ticket.assigned_group|truncatechars:32 }}
             </a>
             {% endif %} | {{ ticket.state }}
