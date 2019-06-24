@@ -42,7 +42,7 @@
                     <td>{{ticket.deadline}}</td>
                     <td>{% firstof ticket.get_nextOccurence|date:"D, d. F Y"  "-----" %}</td>
                     <td>
-                        <form method="POST" action="/recurring/">
+                        <form method="POST" action="{% url "recurring_ticket" %}">
                             {% csrf_token %}
                             {{ crispy }}
                             <button type="submit" name="_turnoff"
