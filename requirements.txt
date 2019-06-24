@@ -20,7 +20,7 @@ django-recurrence
 bleach
 python-coveralls
 selenium
-pyvirtualdisplay
+pyvirtualdisplay==0.2.4
 mysqlclient==1.4.2.post1
 django-auth-ldap==1.7.0
 python-ldap==3.2.0
