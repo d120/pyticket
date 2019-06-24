@@ -25,7 +25,10 @@ install:
 matrix:
   fast_finish: true
   
-script: 
+script:
+  - export PYTHONWARNINGS=all
+  - python manage.py check
+  - python manage.py makemigrations --dry-run --check
   - coverage run --source='.' manage.py test
   - coverage report
   
