@@ -1,8 +1,10 @@
 language: python
 
+dist: xenial
+
 services:
   - mysql
-  
+
 python:
   - "3.5"
   - "3.6"
