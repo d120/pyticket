@@ -16,7 +16,7 @@ django-crispy-forms==1.7.2
 mistune==0.8.4
 django-filter==2.1.0
 coverage==4.5.3
-django-recurrence==1.9.0
+django-recurrence==1.10.0
 bleach==3.1.0
 python-coveralls==2.9.2
 selenium==3.141.0
