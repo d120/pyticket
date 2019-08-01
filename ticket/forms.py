@@ -34,7 +34,7 @@ class AddTicketForm(ModelForm):
 					"keepInvalid": False,
 					"useCurrent": False,
                 }), required=False, help_text=_("Der Tag bis das Ticket erledigt sein soll."), validators=[valid_deadline])
-	assigned_user = forms.ModelChoiceField(queryset=get_user_model().objects.all().order_by('username'))
+	assigned_user = forms.ModelChoiceField(queryset=get_user_model().objects.all().order_by('username'),required=False)
 	class Meta:
 		model = Ticket
 		fields = ["name", "text", "assigned_user", "assigned_group", "priority", "deadline"]
