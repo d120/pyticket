@@ -5,6 +5,7 @@ from datetime import date
 from dateutil.relativedelta import relativedelta
 from bootstrap_datepicker_plus import DatePickerInput
 from django.utils.translation import ugettext_lazy as _
+from django.contrib.auth import get_user_model
 
 def valid_deadline(value):
 	"""
@@ -33,6 +34,7 @@ class AddTicketForm(ModelForm):
 					"keepInvalid": False,
 					"useCurrent": False,
                 }), required=False, help_text=_("Der Tag bis das Ticket erledigt sein soll."), validators=[valid_deadline])
+	assigned_user = forms.ModelChoiceField(queryset=get_user_model().objects.all().order_by('username'))
 	class Meta:
 		model = Ticket
 		fields = ["name", "text", "assigned_user", "assigned_group", "priority", "deadline"]
