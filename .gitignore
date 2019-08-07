@@ -12,6 +12,7 @@ pyticket/.idea/misc.xml
 pyticket/.idea/encodings.xml
 pyticket/.idea/codeStyles/codeStyleConfig.xml
 db.sqlite3
+.coverage
 
 .idea/*
 venv/*
