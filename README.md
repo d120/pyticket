@@ -1,25 +1,19 @@
 # Make task management better! 
 [![Build Status](https://travis-ci.org/d120/pyticket.svg?branch=master)](https://travis-ci.org/d120/pyticket)
 [![Coverage Status](https://coveralls.io/repos/github/d120/pyticket/badge.svg?branch=master)](https://coveralls.io/github/d120/pyticket?branch=master)
-# Installation
+# Installation (development)
 
 Install a virtual environment:
 ```
 sudo pip3 install virtualenv
 ```
 
-Create a new project directory:
+Clone the repo
 ```
-mkdir ~/projectname
-cd ~/projectname
-```
-
-Download the repo and move the project into that directory:
-```
-cp -r /path_of_downloads /path_of_project_directory
+git clone https://github.com/d120/pyticket.git
 ```
 
-Start the virtual environment in the specific directory:
+Create and activate the virtual environment:
 ```
 virtualenv venv
 source venv/bin/activate
@@ -27,21 +21,19 @@ source venv/bin/activate
 
 With the new terminal look (like: (venv)username@hostname:~/projectname) you are ready to install the requirements:
 ```
-cd /ticketsystem
-
 pip3 install -r requirements.txt
 ```
 
 Now all requirements for the project are downloaded and installed.
 Open settings within mysite:
 ```
-cd /mysite
+cd pyticket
 ```
 
 Edit the settings.py file with an editor and enter your site configurations:
 ```
-BASE_URL = ""
-ALLOWED_HOSTS = []
+BASE_URL = "<your base url without trailing slash"
+ALLOWED_HOSTS = ['allowed hosts']
 ```
 
 To enable the email summary functionality. You have to set the parameters for your email host:
@@ -63,10 +55,8 @@ AUTH_LDAP_USER_SEARCH = LDAPSearch("ou=users,dc=example,dc=com",
 
 The database must be updated:
 ```
-python3 manage.py makemigrations
 python3 manage.py migrate
 ```
-
 
 Create an admin to control the ticketsystem:
 ```
