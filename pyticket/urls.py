@@ -23,7 +23,8 @@ urlpatterns = [
     path('accounts/', include("account.urls")),
     path('notification/', include("notification.urls")),
     path('', include("ticket.urls")),
-    path('group/', include("user_group.urls"))
+    path('group/', include("user_group.urls")),
+    path('api/', include("api.urls"))
 ]
 
 
