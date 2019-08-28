@@ -15,7 +15,8 @@ from django.db.models import Q
 from django.utils.translation import ugettext_lazy as _
 from .forms import AddTicketForm, AddCommentForm, EditTicketForm
 from notification.functions import send_email, send_assigned_notification, \
-    send_ticket_edit_notification, send_user_commented_ticket, send_ticket_rejected_notification, send_ticket_deadline_notification, send_email_now
+    send_ticket_edit_notification, send_user_commented_ticket, \
+    send_ticket_rejected_notification, send_ticket_deadline_notification, send_email_now
 import copy
 from django.utils.text import Truncator
 import bleach
