@@ -13,6 +13,7 @@ STATE_CHOICES = (
 )
 
 PRIORITY_CHOICES = (
+    ('critical', 'critical'),
     ('high', 'high'),
     ('normal', 'normal'),
     ('low', 'low'),
