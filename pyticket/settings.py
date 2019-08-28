@@ -50,6 +50,8 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'rest_framework',
+    'rest_framework.authtoken',
     'crispy_forms',
     'account',
     #'ldap',
@@ -61,7 +63,8 @@ INSTALLED_APPS = [
     'recurrence',
     'ajax_select',
     'bleach',
-    'pyticket'
+    'pyticket',
+    'api'
 ]
 CRISPY_TEMPLATE_PACK = 'bootstrap4'
 
@@ -106,6 +109,14 @@ DATABASES = {
         'ENGINE': 'django.db.backends.sqlite3',
         'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
     }
+}
+
+
+# REST framework configuration
+REST_FRAMEWORK = {
+    'DEFAULT_AUTHENTICATION_CLASSES': [
+        'rest_framework.authentication.TokenAuthentication',
+    ],
 }
 
 
