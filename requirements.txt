@@ -20,7 +20,7 @@ django-recurrence==1.10.0
 djangorestframework==3.10.2
 EasyProcess==0.2.7
 idna==2.8
-lazy-object-proxy==1.4.1
+lazy-object-proxy==1.4.2
 mistune==0.8.4
 mysqlclient==1.4.4
 pyasn1==0.4.6
