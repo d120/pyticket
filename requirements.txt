@@ -6,7 +6,7 @@ Click==7.0
 colorama==0.4.1
 coverage==4.5.4
 crayons==0.2.0
-Django==2.2.4
+Django==2.2.5
 django-ajax-selects==1.7.1
 django-appconf==1.0.3
 django-auth-ldap==2.0.0
