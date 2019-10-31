@@ -14,7 +14,7 @@ def link_builder(ticket):
 def send_ticket_deadline_notification(ticket):
 	subject = '"{0}" hat heute seine Deadline erreicht'.format(ticket.name)
 	message = '"{0}" hat heute seine Deadline erreicht'.format(ticket.name) + "\n\n" + link_builder(ticket)
-	send_email(ticket.assigned_user, subject, message)		
+	send_email(ticket, subject, message)		
 
 # user: the user that edits 
 # ticket: the ticket that has been edited
@@ -50,7 +50,8 @@ def send_assigned_notification(user, ticket):
 	send_email(ticket.assigned_user, subject, message)
 
 # sends an email, eather directly or save it as an EmailBucket to send later
-def send_email(user, subject, message, frm=settings.DEFAULT_FROM_EMAIL, pdf=None):
+def send_email(ticket, subject, message, frm=settings.DEFAULT_FROM_EMAIL, pdf=None):
+	user = ticket.assigned_user
 	if user.sending_email_once_a_day:
 		email = EmailBucket()
 		email.send_to = user
@@ -59,6 +60,11 @@ def send_email(user, subject, message, frm=settings.DEFAULT_FROM_EMAIL, pdf=None
 		email.save()
 	else:
 		send_email_now([user.email], subject, message, frm=settings.DEFAULT_FROM_EMAIL, pdf=None)
+
+	# send mail to group
+	groupemail = ticket.assigned_group.groupemail.email
+	if groupemail != None:
+		send_email_now([groupemail], subject, message, frm=settings.DEFAULT_FROM_EMAIL, pdf=None)
 
 # send the email now
 def send_email_now(to, subject, message, frm=settings.DEFAULT_FROM_EMAIL, pdf=None):

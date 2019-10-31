@@ -28,6 +28,7 @@ class MyUserGroupViewsTest(TestCase):
         data['name'] = 'Test group 143'
         data['members'] = 1
         data['admins'] = 1
+        data['email'] = 'hello@world.de'
         resp = self.client.post(url, data, follow=True)
         self.assertEqual(resp.status_code, 200)
         self.assertIn('Test group 143', str(resp.content))

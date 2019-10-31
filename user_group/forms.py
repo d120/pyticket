@@ -1,4 +1,4 @@
-from django.forms import ModelForm
+from django.forms import ModelForm, EmailField
 from ajax_select.fields import AutoCompleteSelectMultipleField
 from django.contrib.auth.models import Group
 from django.utils.translation import ugettext_lazy as _
@@ -12,6 +12,7 @@ class AddGroupForm(ModelForm):
     class Meta:
         model = Group
         exclude = ['permissions']
+        fields = ['name', 'members']
     # not part of model Group, adds a FormField for selecting members of the group
     members = AutoCompleteSelectMultipleField('look_members', required=True,
                                               help_text=_(
@@ -20,3 +21,4 @@ class AddGroupForm(ModelForm):
                                               widget_options={'attrs': {
                                                   'placeholder': _(
                                                       'Suche nach Nutzern')}})
+    email = EmailField(required=False, help_text=_('E-Mail Adresse der Gruppe'))

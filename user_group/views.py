@@ -65,7 +65,9 @@ class EditGroupView(LoginRequiredMixin, View):
                 form.save()
                 # set the given users(passed as parameter members) as members of the group
                 group.user_set.set(form.cleaned_data["members"])
+                group.groupemail.email = form.cleaned_data["email"]
                 group.save()
+                group.groupemail.save()
                 messages.success(self.request,
                              _('Gruppe {0} wurde erfolgreich editiert!'.format(get_group_name(group))))
                 return HttpResponseRedirect(reverse("dashboard"))
