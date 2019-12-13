@@ -4,7 +4,7 @@ from django.urls import reverse
 
 #account views test cases
 class MyUserViewsTest(TestCase):
-    fixtures = ['fixtures/accounts.json']
+    fixtures = ['fixtures/auth_groups.json', 'fixtures/accounts.json']
 
     #login view test
     def test_login_view(self, username='test_user', email='mail@test.com', password='Testing123'):
