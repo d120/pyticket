@@ -6,7 +6,7 @@ from ticket.models import Ticket
 class TicketFormTest(TestCase):
 
     #install fixtures
-    fixtures = ['fixtures/accounts.json']
+    fixtures = ['fixtures/auth_groups.json', 'fixtures/accounts.json']
 
     #check valid login form
     def test_valid_login_form(self):

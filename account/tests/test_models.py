@@ -3,7 +3,7 @@ from account.models import MyUser
 
 #account models test cases
 class MyUserTest(TestCase):
-    fixtures = ['fixtures/accounts.json']
+    fixtures = ['fixtures/auth_groups.json', 'fixtures/accounts.json']
 
     #create test user
     def create_my_user(self, username='test_user', email='mail@test.com', password='Testing123'):
