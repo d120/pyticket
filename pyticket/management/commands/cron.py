@@ -3,6 +3,7 @@ from datetime import datetime, timedelta
 import pytz
 
 from django.core.management.base import BaseCommand, CommandError
+from django.contrib.auth.models import Group
 from ticket.models import Ticket
 from account.models import MyUser
 from notification.models import EmailBucket
