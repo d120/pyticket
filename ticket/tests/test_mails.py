@@ -46,7 +46,7 @@ class MailTest(TestCase):
         )
         self.assertEqual(
             mail.outbox[0].body,
-            " Ein neues Ticket &quot;Mail Ticket&quot; wurde von mailtestuser in der Gruppe mailtestgroup angelegt\n\n{} ".format(
+            'Ein neues Ticket "Mail Ticket" wurde von mailtestuser in der Gruppe mailtestgroup angelegt\n\n{}'.format(
                 link_builder(Ticket.objects.get(name="Mail Ticket"))
             ),
         )
