@@ -4,7 +4,7 @@ Click==7.0
 coverage==5.0.1
 crayons==0.3.0
 Django==2.2.8
-django-ajax-selects==1.7.1
+django-ajax-selects==1.8.0
 django-appconf==1.0.3
 django-auth-ldap==2.1.0
 django-bootstrap-datepicker-plus==3.0.5
