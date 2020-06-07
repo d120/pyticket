@@ -2,7 +2,7 @@ astroid==2.4.1
 bleach==3.1.5
 Click==7.1.2
 coverage==5.1
-crayons==0.3.0
+crayons==0.3.1
 Django==2.2.13
 django-ajax-selects==1.9.1
 django-appconf==1.0.4
