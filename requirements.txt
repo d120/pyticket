@@ -3,7 +3,7 @@ bleach==3.1.5
 Click==7.1.2
 coverage==5.1
 crayons==0.3.1
-Django==2.2.13
+Django==2.2.14
 django-ajax-selects==1.9.1
 django-appconf==1.0.4
 django-auth-ldap==2.2.0
