@@ -14,7 +14,7 @@ django-coverage==1.2.4
 django-crispy-forms==1.9.2
 django-filter==2.3.0
 django-recurrence==1.10.3
-djangorestframework==3.11.0
+djangorestframework==3.11.1
 mistune==0.8.4
 mysqlclient==2.0.1
 python-coveralls==2.9.3
