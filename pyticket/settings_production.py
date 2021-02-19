@@ -33,9 +33,18 @@ DATABASES = {
     }
 }
 
-STATIC_URL = '/pyticket/static/'
-LOGIN_URL = '/pyticket/accounts/login/'
-MEDIA_URL = '/pyticket/media/'
+BASE_PATH = '/pyticket'
+
+STATIC_URL = BASE_PATH + '/static/'
+LOGIN_URL = BASE_PATH + '/accounts/login/'
+MEDIA_URL = BASE_PATH + '/media/'
+
+SESSION_COOKIE_PATH = BASE_PATH
+SESSION_COOKIE_SECURE = True
+
+CSRF_COOKIE_PATH = BASE_PATH
+CSRF_COOKIE_SECURE = True
+
 
 STATIC_ROOT = os.path.join(BASE_DIR, 'static_serve')
 
