@@ -11,7 +11,7 @@ django-bootstrap-datepicker-plus==3.0.5
 django-bootstrap-form==3.4
 django-classy-tags==2.0.0
 django-coverage==1.2.4
-django-crispy-forms==1.11.2
+django-crispy-forms==1.12.0
 django-filter==2.4.0
 django-recurrence==1.10.3
 djangorestframework==3.12.4
