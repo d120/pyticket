@@ -1,7 +1,9 @@
-# Make task management better! 
+# Since we do not use the software anymore it is now **unmaintained**
+
+## Make task management better! 
 [![Build Status](https://travis-ci.org/d120/pyticket.svg?branch=master)](https://travis-ci.org/d120/pyticket)
 [![Coverage Status](https://coveralls.io/repos/github/d120/pyticket/badge.svg?branch=master)](https://coveralls.io/github/d120/pyticket?branch=master)
-# Installation (development)
+## Installation (development)
 
 Install a virtual environment:
 ```
